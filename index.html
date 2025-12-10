@@ -2,990 +2,322 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="Predictable Scale: Part I — Optimal Hyperparameter Scaling Law in
-        Large Language Model Pretraining">
-  <!-- <meta name="keywords" content="Nerfies, D-NeRF, NeRF"> -->
+  <meta name="description" content="GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Predictable Scale: Part I</title>
+  <title>GDKVM: Echocardiography Video Segmentation</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-
+  <!-- External Stylesheets (CDNs) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <!-- External Scripts (CDNs) -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
   <style>
-    .katex { font-size: 1.1em; }
-    .formula-box { padding: 1rem; background: #f8f9fa; }
+    /* Global Settings */
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #ffffff;
+      color: #4a4a4a;
+    }
+    
+    a {
+      color: #3273dc;
+      transition: color 0.2s;
+    }
+    
+    a:hover {
+      color: #1a237e;
+    }
+
+    /* Typography */
+    .publication-title {
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .subtitle {
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    /* Abstract & Formula Boxes */
+    .abstract-box {
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    
+    .formula-container {
+      background: #f8f9fa; 
+      border-radius: 15px;  
+      padding: 1rem 2rem; 
+      margin: 1.5rem auto;
+      width: fit-content; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+      border: 1px solid #e0e0e0;
+    }
+
+    .math-display {
+      text-align: center;
+      padding: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .formula-caption {
+      border-left: 4px solid #3298dc;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Highlight Title Animation */
+    .highlight-title {
+      background: linear-gradient(
+        45deg,
+        #005c3f,
+        #37804c,
+        #519575,
+        #50bc90,
+        #56ef75,
+        #70f971,
+        #43ff7c,
+        #00ffa6
+      );
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-style: italic;
+      animation: gradientShift 12s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Image Placeholders */
+    .figure-placeholder {
+      background: #fcfcfc;
+      border: 2px dashed #dbdbdb;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      margin-bottom: 1.5rem;
+      color: #b5b5b5;
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+    }
+
+    .figure-placeholder svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+      fill: #dbdbdb;
+    }
+    
+    .figure-label {
+      font-weight: bold;
+      color: #7a7a7a;
+    }
+
   </style>
-
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
 </head>
 <body>
 
-<section class="hero" style="margin: 0.1rem 0 !important; padding: 0.2rem 0.2rem !important;">
+<section class="hero" style="padding-top: 2rem;">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">
-            <span class="highlight-title">Predictable Scale: Part I — Optimal Hyperparameter Scaling Law in 
-            Large Language Model Pretraining</span>
+            <span class="highlight-title">GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule</span>
           </h1>
-            <style>
-            /* 动态渐变效果 */
-            .highlight-title {
-              background: linear-gradient(
-                45deg,
-                #003f5c 0%,
-                #374c80 12.5%,
-                #7a5195 25%,
-                #bc5090 37.5%,
-                #ef5675 50%,
-                #f97170 62.5%,
-                #ff7c43 75%,
-                #ffa600 87.5%
-              );
-              background-size: 400% 400%;
-              -webkit-background-clip: text;
-              background-clip: text;
-              color: transparent;
-              font-style: italic;
-              animation: gradientShift 12s ease infinite;
-              text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            @keyframes gradientShift {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-            }
-            
-            @media (prefers-reduced-motion: reduce) {
-              .highlight-title {
-                animation: none;
-                background: #FF6B6B; /* 降级为纯色 */
-              }
-            }
-            /* 保持原有字体样式 */
-            .publication-title {
-              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            }
-            </style>
-          <div class="publication-authors">
-            <span class="author-block">
-              <span class="author-name">Houyi Li</span><sup style="font-size: 0.6rem;">1,2</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Wenzhen Zheng</span><sup style="font-size: 0.6rem;">1</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Qiufeng Wang</span><sup style="font-size: 0.6rem;">1</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Hanshan Zhang</span><sup style="font-size: 0.6rem;">1</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Zili Wang</span><sup style="font-size: 0.6rem;">1</sup>
-            </span>
-            <div style="width: 100%; height: 0;"></div>
-            <span class="author-block">
-              <span class="author-name">Shijie Xuyang</span><sup style="font-size: 0.6rem;">1,2</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Yuantao Fan</span><sup style="font-size: 0.6rem;">1</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Zhenyu Ding</span><sup style="font-size: 0.6rem;">3</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Haoying Wang</span><sup style="font-size: 0.6rem;">3</sup>
-            </span>
-            <div style="width: 100%; height: 0;"></div>
-            <span class="author-block">
-              <span class="author-name">Ning Ding</span><sup style="font-size: 0.6rem;">3</sup>
-            </span>                     
-            <span class="author-block">
-              <span class="author-name">Shuigeng Zhou</span><sup style="font-size: 0.6rem;">2</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Xiangyu Zhang</span><sup style="font-size: 0.6rem;">1,4</sup>
-            </span>
-            <span class="author-block">
-              <span class="author-name">Daxin Jiang</span><sup style="font-size: 0.6rem;">1</sup>
-            </span>
-          </div>
-          <div class="institutional-affiliations" style="text-align: center; margin-top: 0.25rem; font-size: 0.9rem;">
-              <span style="margin-right: 1rem;"><sup style="font-size: 0.6rem;">1</sup>StepFun</span>
-              <span style="margin-right: 1rem;"><sup style="font-size: 0.6rem;">2</sup>Fudan University</span>
-              <span style="margin-right: 1rem;"><sup style="font-size: 0.6rem;">3</sup>Xi'an Jiaotong University</span>
-              <span><sup style="font-size: 0.6rem;">4</sup>Megvii Technology</span>
-          </div>
           
-
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/pdf/2503.04715"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2503.04715"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/step-law/steplaw"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- HF Link. -->
-              <span class="link-block">
-                <a href="https://huggingface.co/StepLaw"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" width="24" height="24" />
-                  </span>
-                  <span>HF</span>
-                </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://wandb.ai/billzid/predictable-scale"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-chalkboard"></i>
-                  </span>
-                  <span>Wandb</span>
-                </a>
-              </span>
-            </div>
-
+          <!-- Authors -->
+          <div class="publication-authors">
+            <span class="author-block">Rui Wang<sup style="font-size: 0.6rem;">1</sup>,</span>
+            <span class="author-block">Yimu Sun<sup style="font-size: 0.6rem;">1</sup>,</span>
+            <span class="author-block">Jingxing Guo<sup style="font-size: 0.6rem;">1</sup>,</span>
+            <span class="author-block">Huisi Wu<sup style="font-size: 0.6rem;">1,*</sup>,</span>
+            <span class="author-block">Jing Qin<sup style="font-size: 0.6rem;">2</sup></span>
           </div>
+
+          <div class="institutional-affiliations" style="margin-top: 1rem; font-size: 0.9rem;">
+              <span style="display: block; margin-bottom: 0.2rem;"><sup style="font-size: 0.6rem;">1</sup>College of Computer Science and Software Engineering, Shenzhen University</span>
+              <span style="display: block;"><sup style="font-size: 0.6rem;">2</sup>Centre for Smart Health, School of Nursing, The Hong Kong Polytechnic University</span>
+              <span style="display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #666;">*Corresponding Author: hswu@szu.edu.cn</span>
+          </div>
+
+          <!-- Buttons -->
+          <div class="publication-links" style="margin-top: 1.5rem;">
+            <span class="link-block">
+              <a href="#" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" style="margin: 0 !important; padding: 0 !important;">
+<!-- Teaser Figure -->
+<section class="section">
   <div class="container is-max-desktop">
-    <div class="columns is-centered mb-6">
+    <div class="columns is-centered">
       <div class="column is-full-width">
-        <figure class="image mb-5"> 
-          <img src="./static/images/img1.png" alt="img1">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">Figure 1. The hyperparameter space for models 
-            with 400M parameters trained on 40B tokens (left) and 1B parameters trained on 100B tokens (right).</strong>
-            All contour lines shown here represent the genuinely converged Train Smooth Loss obtained from small models 
-            trained from scratch. The contour lines in the two figures respectively originate from two groups 
-            totaling 240 small models with different hyperparameters (Grid Search) trained end-to-end. 
-            The Global Minimum is derived from the 120 small models as the one with the minimal final Train Smooth Loss. 
-            The contour lines illustrate the relative distance from the Global Minimum in terms of the final loss. 
-            Data points exceeding +2% are excluded from the visualization. 
-            All mentioned methods have been converted to predict OptimalToken-Wise BatchSize.
-          </figcaption>
-        </figure>
+        <div class="figure-placeholder" style="background: linear-gradient(to bottom right, #f0fff4, #ffffff);">
+            <i class="fas fa-heart-pulse fa-3x" style="color: #48c774; margin-bottom: 1rem;"></i>
+            <h3 class="title is-5">Method Overview / Teaser</h3>
+            <p>Spatiotemporal Key-Value Memory Network Structure</p>
+            
+            <!-- SVG Simulation of Segmentation/Memory Architecture -->
+            <svg viewBox="0 0 400 150" style="width: 100%; max-width: 600px; height: auto; margin-top: 1rem; opacity: 0.7;">
+                <!-- Frames -->
+                <rect x="20" y="40" width="40" height="60" rx="4" fill="#fff" stroke="#48c774" stroke-width="2"/>
+                <rect x="70" y="40" width="40" height="60" rx="4" fill="#fff" stroke="#48c774" stroke-width="2"/>
+                <rect x="120" y="40" width="40" height="60" rx="4" fill="#fff" stroke="#48c774" stroke-width="2"/>
+                <!-- Memory Module -->
+                <rect x="200" y="20" width="120" height="100" rx="8" fill="#f0fff4" stroke="#3ec487" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="260" y="75" font-size="10" text-anchor="middle" fill="#3ec487">Gated Delta Memory</text>
+                <!-- Output -->
+                <rect x="350" y="40" width="40" height="60" rx="4" fill="#48c774" opacity="0.5"/>
+                <!-- Arrows -->
+                <line x1="160" y1="70" x2="200" y2="70" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+                <line x1="320" y1="70" x2="350" y2="70" stroke="#ccc" stroke-width="2" marker-end="url(#arrow)"/>
+            </svg>
+        </div>
+        <figcaption style="font-size: 0.9rem; color: #555; text-align: center;">
+            <strong>Figure 1.</strong> Overview of the GDKVM architecture for robust echocardiography video segmentation.
+        </figcaption>
       </div>
     </div>
   </div>
 </section>
 
-
-<section class="section" style="margin: 0 0.5rem !important; padding: 0 0.5rem !important;">
+<!-- Abstract -->
+<section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="abstract-box has-background-white-bis p-6">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3 elegant-title">Abstract</h2>
+          <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              We first present the unified optimal hyperparameter scaling laws, termed Step Law, 
-              that generalizes across diverse model shapes, architectures, and data distributions. 
+              Accurate segmentation of cardiac chambers in echocardiography sequences is crucial for the quantitative analysis of cardiac function, aiding in clinical diagnosis and treatment.
+              The imaging noise, artifacts, and the deformation and motion of the heart pose challenges to segmentation algorithms.
             </p>
             <p>
-              Our findings demonstrate remarkable accuracy, with estimated values on test sets deviating 
-              by only 0.09% from the globally optimal LLM performance identified through exhaustive search.
+              While existing methods based on convolutional neural networks, Transformers and space-time memory networks, have improved segmentation accuracy, they often struggle with the trade-off between capturing long-range spatiotemporal dependencies and maintaining computational efficiency with fine-grained feature representation.
             </p>
             <p>
-              This research entails a significant computational investment, 
-              utilizing nearly <b>one million NVIDIA H800 GPU hours</b> to train <b>3,700 LLMs</b> 
-              of varying sizes and hyperparameters from scratch, consuming approximately 
-              <b>100 trillion tokens</b> in total. To support reproducibility and advance the field for LLM pre-training, 
-              we will progressively release all loss measurements and model checkpoints through our designated repository.
-              The universal, plug-and-play <a href = "#steplawtool">optimal hyperparameter tool</a> is provided for the community.
+              In this paper, we introduce <strong>GDKVM</strong>, a novel architecture for echocardiography video segmentation.
+              The model employs Linear Key-Value Association (LKVA) to effectively model inter-frame correlations, and introduces Gated Delta Rule (GDR) to efficiently store intermediate memory states. Key-Pixel Feature Fusion (KPFF) module is designed to integrate local and global features at multiple scales, enhancing robustness against boundary blurring and noise interference.
+            </p>
+            <p>
+              We validated GDKVM on two mainstream echocardiography video datasets (CAMUS and EchoNet-Dynamic) and compared it with various state-of-the-art methods.
+              Experimental results show that GDKVM outperforms existing approaches in terms of segmentation accuracy and robustness, while ensuring real-time performance.
+              Codes are available at <a href="https://github.com/wangrui2025/GDKVM" target="_blank">https://github.com/wangrui2025/GDKVM</a>.
             </p>
           </div>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
   </div>
 </section>
 
-<section class="section" style="margin: 0 0.1rem !important; padding: 0 0.5rem !important;">
+<!-- Methodology Placeholder -->
+<section class="section">
   <div class="container is-max-desktop">
-    <!-- 文字描述部分 -->
-    <div class="formula-caption">
-      <p class="caption-text">
-        <span class="highlight-term">Step Law</span> demonstrates that the optimal 
-        batch size <span class="math-inline">$B(D)$</span> exhibits a primary dependence 
-        on dataset size <span class="math-inline">$D$</span>, while the optimal learning rate 
-        <span class="math-inline">$\eta(N, D)$</span> manifests a joint dependence on both 
-        model parameters <span class="math-inline">$N$</span> and dataset size 
-        <span class="math-inline">$D$</span>.
+    <h3 class="title is-4">Methodology</h3>
+    <div class="content has-text-justified">
+      <p>
+        The core contribution of our work lies in the <strong>Gated Delta Rule</strong> for memory updates. Unlike traditional memory networks that overwrite or simply accumulate information, our mechanism selectively updates the Key-Value memory banks based on the relevance of new frame features.
       </p>
     </div>
-
-    <!-- 公式区块 -->
-    <div class="formula-container">
-      <div class="math-display">
-      $$
-        \begin{aligned}
-        \eta(N, D) & = 1.79N^{-0.713}D^{0.307}  \\
-        B(D)       & = 0.58D^{0.571}     
-        \end{aligned}
-      $$
-      </div>
+    
+    <div class="figure-placeholder">
+        <i class="fas fa-microchip fa-2x"></i>
+        <div class="figure-label">Gated Delta Rule Illustration</div>
+        <p class="is-size-7 mt-2">Diagram showing how the memory matrix is updated</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<style>
-/* 公式容器样式 */
-.formula-container {
-  background: #f8f9fa; 
-  border-radius: 30px;  
-  padding: 0.6rem 0.6rem; 
-  margin: 1.0rem auto 0rem;
-  margin-bottom: 0rem;
-  width: fit-content; 
-  display: block;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); 
-  border: 1px solid #e0e0e0; /
-}
-
-/* 行内公式样式 */
-.math-inline {
-  font-family: "KaTeX_Math", sans-serif;
-  color: #1a237e;
-  font-style: italic;
-  padding: 0 0.3rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* 数学公式显示 */
-.math-display {
-  text-align: center;
-  padding: 1rem;
-}
-
-.katex {
-  font-size: 1.2rem !important;
-  color: #000;
-}
-
-/* 文字描述样式 */
-.formula-caption {
-  border-left: 3px solid #4a90e2;
-  padding-left: 1rem;
-}
-
-.caption-text {
-  color: #333;
-  line-height: 1.8;
-  font-size: 0.95rem;
-  font-family: 'Arial', sans-serif;
-}
-
-.highlight-term {
-  color: #1565c0;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-}
-
-/* 加载 KaTeX 字体 */
-@import url('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css');
-</style>
-
-
-<section class="section" style="margin: 0.5rem 0 !important; padding: 0.5rem 0 !important;">
+<!-- Results Placeholder -->
+<section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 elegant-title">Loss Landscape Convexity</h2>
-    <div class="content-header mb-4">
-      <div class="column is-full-width">
-        <p class="subtitle is-6 has-text-grey-dark has-text-left" 
-           style="line-height: 1.5; font-size: 1.05rem;">
-          We discover and demonstrate the convexity property of the loss landscape under fixed parameter count 
-          and data size conditions. This provides fundamental insights into hyperparameter optimization.
-        </p>
-      </div>
-    </div>
-    <div class="columns is-centered mb-6">
-      <div class="column is-full-width">
-        <figure class="image mb-5"> 
-          <img src="./static/images/img2.png" alt="img2">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">Figure 2. Learning Rate vs. Batch Size Loss Landscape Analysis 
-            for 1B Model (Trained on 100B Tokens) combining empirical scatter data (left) and reconstructed 3D surfaces (right):</strong> 
-
-            Each solid point represents the converged Train Smoothed Loss from 120 small models trained from scratch. 
-            To visualize the convexity, researchers constructed a 3D coordinate system (right) with the x-axis as Learning Rate, 
-            y-axis as Batch Size, and z-axis as Loss. Horizontal and vertical cross-sections of 
-            this 3D space reveal loss patterns: the upper-left subplot shows the final converged Train Smoothed Loss 
-            under fixed Learning Rates with varying Batch Sizes, while the lower-left subplot displays the loss under 
-            fixed Batch Sizes with varying Learning Rates. 
-            A pronounced convexity is observed with a relatively flat region at the bottom of the convex basin 
-            suggesting that the optimal combinations of Learning Rate and Batch Size likely occupy a broad range 
-            rather than a single sharp minimum.
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <h2 class="title is-3 elegant-title">Generalization of the Step Law</h2>
-    <div class="content-header mb-4">
-      <div class="column is-full-width">
-        <p class="subtitle is-6 has-text-grey-dark has-text-left" 
-           style="line-height: 1.5; font-size: 1.05rem;">
-           We conduct a comprehensive investigation into how different model architectures 
-           (specifically varying combinations of width and depth dimensions) influence scaling laws. 
-           Our findings demonstrate that Step Law exhibits a high degree of stability across all architectural configurations.
-        </p>
-      </div>
-    </div>
-    <div class="columns is-centered mb-6">
-      <div class="column is-full-width">
-        <figure class="image mb-5"> 
-          <img src="./static/images/img3.png" alt="img3">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">Figure 3. Topological Invariance Across Varied Model Shape.</strong>
-            This figure demonstrates the topological invariance of optimal hyperparameters across 
-            different model shapes under fixed non-vocabulary parameter counts and training token budgets. 
-            Researchers systematically varied model architectures by adjusting layer counts (14/10/8 layers from left to right), 
-            hidden dimensions (1280/1536/2048), and six FFN multiples (FFN_media_dim/model_dim ranging from 1.1x to 6.25x). 
-            Red five-pointed stars denote predictions from the Step Law method, 
-            which consistently identifies near-global-minimum regions across all six model shapes. 
-            While the Step Law predictions remain stable, the positional shifts of the convex basin's bottom region 
-            across different architectures reveal shape-dependent variations in optimal hyperparameter configurations, 
-            despite preserved topological characteristics in the loss landscape.
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-
-
-    <div class="content-header mb-4">
-      <div class="column is-full-width">
-        <p class="subtitle is-6 has-text-grey-dark has-text-left" 
-           style="line-height: 1.5; font-size: 1.05rem;">
-           Besides, our research findings reveal that this scaling law not only applies to dense models 
-           but also generalizes effectively to MoE models with varying sparsity levels, 
-           demonstrating robust generalization capabilities.
-        </p>
-      </div>
-    </div>
-    <div class="columns is-centered mb-6">
-      <div class="column is-full-width">
-        <figure class="image mb-5">
-          <img src="./static/images/img4.png" alt="img4">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">Figure 4. Validation loss landscapes of MoE models under varying sparsity ratios N<sub>a</sub>/N.</strong>
-            <!-- Left: Low sparsity N<sub>a</sub>/N=0.27. Middle: Medium sparsity N<sub>a</sub>/N=0.58. 
-            Right: Medium sparsity at D=8.0B. 
-            Our method consistently approximates global minima across sparsity regimes.
-             -->
-            The left panel shows low sparsity (NA/N = 0.27), the center illustrates
-            moderate sparsity ( N<sub>a</sub>/N = 0.58, D/N = 10), and the right depicts moderate sparsity
-            with reduced training tokens (N N<sub>a</sub>/N = 0.58, D/N = 4). Researchers trained 45 small
-            models from scratch for each configuration across different sparsity levels and D/N
-            ratios, totaling 495 distinct MoE models with varying sparsity, hyperparameters, and D/N
-            settings, to derive ground-truth Global Minimum Train Smepothed Loss values. Except for
-            one D/N = 1 experiment, Step Law predictions consistently fall within +0.5% of the
-            global minimum across all configurations, with most within +0.25%, robustly validating the
-            method. Detailed results are provided in the appendix.
-          </figcaption>
-        </figure>
-      </div>
+    <h3 class="title is-4">Experimental Results</h3>
+    <div class="content">
+      <p>
+        We evaluate GDKVM on widely used echocardiography datasets. The results indicate significant improvements in Dice Similarity Coefficient (DSC) and temporal consistency.
+      </p>
     </div>
     
-
-    <div class="content-header mb-4">
-      <div class="column is-full-width">
-        <p class="subtitle is-6 has-text-grey-dark has-text-left" 
-           style="line-height: 1.5; font-size: 1.05rem;">
-           Our experiment further validates the consistency of Step Law across diverse data distributions: 
-           whether in English-dominated, Chinese-English mixed, Code-English mixed, or Code-dominant, 
-           the Step Law demonstrates stable performance. This provides robust support for its 
-           practical applications in multilingual and multitask settings.
-        </p>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="figure-placeholder" style="min-height: 200px;">
+            <i class="fas fa-table fa-2x"></i>
+            <div class="figure-label">Quantitative Comparison</div>
+            <p class="is-size-7 mt-2">Table comparing DSC/HD95 with SOTA</p>
+        </div>
       </div>
-    </div>
-    <div class="columns is-centered mb-6">
-      <div class="column is-full-width">
-        <figure class="image mb-5"> 
-          <img src="./static/images/img5.png" alt="img5">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">Figure 5. Configuration Space Analysis under Different Data Recipes:</strong>
-            left panel shows bilingual data, center panel combines code and mathematical data, 
-            and right panel focuses on code-dominated data. 
-            Each configuration trained 45 models from scratch with identical settings except batch size and learning rate, 
-            totaling 135 models across three data distributions. The Global Minimum represents the ground-truth 
-            lowest Final Train Smoothed Loss obtained through grid search, while Step Law-predicted optimal 
-            batch sizes and learning rates consistently fall within +0.125% to 0.25% of the minimum loss across 
-            all data recipes.
-            <!-- Our method demonstrates stable convergence patterns across varying data compositions. -->
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <h2 class="title is-3 elegant-title">Experimental Details</h2>
-    <div class="content-header mb-4">
-      <div class="column is-full-width">
-        <p class="subtitle is-6 has-text-grey-dark has-text-left" 
-           style="line-height: 1.5; font-size: 1.05rem;">
-           Our comparative analysis reveals that learning rate scheduling strategies significantly 
-           impact optimal hyperparameter selection. The experiment further uncovers critical distinctions 
-           between traditional learning rate decay and fixed minimum learning rate schemes.
-        </p>
-      </div>
-    </div>
-    <div class="columns is-centered mb-6">
-      <div class="column is-full-width">
-        <figure class="image mb-5"> 
-          <img src="./static/images/img6.png" alt="img6">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">Figure 6. Comparison of learning rate schedules.</strong> These contour
-            plots illustrate two distinct learning rate schedules. <strong style="font-weight: 900; color: #000;">Blue
-            contours</strong> represent the <i>conventional decay schedule</i>, where the
-            minimum learning rate min_lr is set to one-tenth of the maximum
-            learning rate max_lr/10. <strong style="font-weight: 900; color: #000;">Red contours</strong> depict our
-            proposed <i>final learning rate schedule</i>, with a constant
-            minimum learning rate of min_lr = 10<sup>-5</sup>. 
-            All the contours present results from grid searches conducted over identical batch size/learning rate ranges 
-            using 120 independently trained models each. The red and blue Global Minimum markers denote ground-truth 
-            minimal Final Train Smoothed Loss values in their respective configurations. When switching to max_lr/10 settings, 
-            the blue markers shift <strong style="font-weight: 900; color: #000;">
-            leftward (toward smaller learning rates) and upward (toward larger batch sizes) </strong>
-            in the parameter space. Absolute value comparisons reveal models with min_lr=1e-5 consistently 
-            achieve lower converged losses than those using max_lr/10 configurations. All ground-truth values 
-            corresponding to these experiments will be progressively open-sourced.
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-
-
-    <div class="content-header mb-4">
-      <div class="column is-full-width">
-        <p class="subtitle is-6 has-text-grey-dark has-text-left" 
-           style="line-height: 1.5; font-size: 1.05rem;">
-           Through logarithmic transformation of power-law relationships into linear forms, 
-           parameters are fitted via the least squares method, with robustness enhanced through bootstrap sampling. 
-           We provide a precise predictive formula, establishing a theoretical foundation for 
-           hyperparameter configuration in LLMs pretraining.
-        </p>
-      </div>
-    </div>
-    <div class="columns is-centered mb-6">
-      <div class="column is-full-width">
-        <figure class="image mb-5"> 
-          <img src="./static/images/img7.png" alt="img7">
-          <figcaption class="mt-2" style="color: #333; font-size: 0.875rem; line-height: 1.4">
-            <strong style="font-weight: 900; color: #000;">
-            <p>Figure 7. (a) Scatter points indicate empirical optimal learning rate vs. batch size for model scale N; (b) Analogous results for dataset scale D.</p>
-            </strong>
-            Curves show our hp-scaling law predictions, with shaded regions representing parameter uncertainty bounds from the sampling-based fitting strategy.
-            Each data point in the figures represents between 45 and 120 independently trained models with distinct hyperparameters. 
-            Every plotted position corresponds to the optimal hyperparameter configuration (Optimal Learning Rate and Optimal Batch Size) 
-            identified through grid search under varying model sizes and data scales. 
-            Both plots use double logarithmic scaling (1912 training samples).
-          </figcaption>
-        </figure>
+      <div class="column">
+        <div class="figure-placeholder" style="min-height: 200px;">
+            <i class="fas fa-images fa-2x"></i>
+            <div class="figure-label">Qualitative Visualization</div>
+            <p class="is-size-7 mt-2">Segmentation masks overlay on Ultrasound frames</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-
-
-<!-- 工具 -->
-<section class="section" style="margin: 0 !important; padding: 0.2rem 0.2rem !important;">
-  
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 elegant-title" id="steplawtool">Step Law Tools</h2>
-    <div class="tool-container">
-      <div class="tool-loading" id="toolLoader">
-        <div class="lds-ring">
-          <div></div><div></div><div></div><div></div>
-        </div>
-      </div>
-      <iframe src="tool.html" 
-              class="tool-iframe"
-              loading="lazy"
-              title="Hyperparameter Optimization Tool"
-              onload="document.getElementById('toolLoader').style.display='none'"></iframe>
-    </div>
-  </div>
-</section>
-
-
-<section class="section" style="padding: 2rem 0;">
-  <div class="container is-max-desktop">
-    <!-- 动态标题 -->
-    <div class="release-header has-text-centered mb-6">
-      <h2 class="title is-3 gradient-text">
-        Open Source Roadmap
-        <span class="pulsating-dot"></span>
-      </h2>
-      <p class="subtitle is-6 has-text-grey-light">Live Progress Tracking</p>
-    </div>
-
-    <!-- 卡片式表格容器 -->
-    <div class="roadmap-container">
-      <!-- 时间线 -->
-      <div class="timeline"></div>
-
-      <!-- 表格主体 -->
-      <div class="roadmap-table">
-        <!-- 表头 -->
-        <div class="table-header">
-          <div class="header-item">Milestone</div>
-          <div class="header-item">Release Status</div>
-        </div>
-
-        <!-- 数据行 -->
-        <div class="table-row completed">
-          <div class="table-cell">
-            <i class="fas fa-check-circle"></i>
-            Predictable Scale Part I: Optimal Hyperparameter Scaling Law
-          </div>
-          <div class="table-cell">
-            <a href="https://arxiv.org/abs/2503.04715"
-              <span class="tag is-success is-rounded">
-                <i class="fas fa-file-pdf"></i> ArXiv
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div class="table-row completed">
-          <div class="table-cell">
-            <i class="fas fa-toolbox"></i>
-            Optimal Hyperparameter Tool
-          </div>
-          <div class="table-cell">
-            <a href = "#steplawtool"
-              <span class="tag is-info is-rounded">
-                <i class="fas fa-home"></i> Tool
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div class="table-row completed">
-          <div class="table-cell">
-            <i class="fas fa-chart-line"></i>
-            Training Dynamic of 3700 Models
-          </div>
-          <div class="table-cell">
-            <div class="progress-container">
-              <a href="https://wandb.ai/billzid/predictable-scale"
-                <span class="tag is-warning">
-                  <i class="fas fa-chalkboard"></i> Wandb
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-row completed">
-          <div class="table-cell">
-            <i class="fas fa-chart-line"></i>
-            Train Smoothed Loss of 3700 Models
-          </div>
-          <div class="table-cell">
-            <div class="progress-container">
-              <a href="https://github.com/step-law/steplaw"
-                <span class="tag is-warning">
-                  <i class="fab fa-github"></i> Github
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-row in-progress">
-          <div class="table-cell">
-            <i class="fas fa-chart-line"></i>
-            Training Dynamics of 3700 Models
-          </div>
-          <div class="table-cell">
-            <div class="progress-container">
-              <a href="https://huggingface.co/StepLaw">
-                <span class="tag is-warning">
-                  <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face" style="height: 1em; vertical-align: middle; margin-right: 4px;">
-                  Hugging Face
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-row upcoming">
-          <div class="table-cell">
-            <i class="fas fa-flag-checkered"></i>
-            Predictable Scale Part II
-          </div>
-          <div class="table-cell">
-            <span class="release-date">
-              <i class="fas fa-hourglass-half"></i>
-              Coming Soon
-            </span>
-          </div>
-        </div>
-
-        <div class="table-row upcoming">
-          <div class="table-cell">
-            <i class="fas fa-flag-checkered"></i>
-            Predictable Scale Part III
-          </div>
-          <div class="table-cell">
-            <span class="release-date">
-              <i class="fas fa-hourglass-half"></i>
-              Coming Soon
-            </span>
-          </div>
-        </div>
-
-        <!-- <div class="table-row upcoming">
-          <div class="table-cell">
-            <i class="fas fa-flag-checkered"></i>
-            Predictable Scale Part IV
-          </div>
-          <div class="table-cell">
-            <span class="release-date">
-              <i class="fas fa-hourglass-half"></i>
-              2025.6.15
-            </span>
-          </div>
-        </div>
-
-        <div class="table-row upcoming">
-          <div class="table-cell">
-            <i class="fas fa-flag-checkered"></i>
-            Predictable Scale Part V
-          </div>
-          <div class="table-cell">
-            <span class="release-date">
-              <i class="fas fa-hourglass-half"></i>
-              2025.7.15
-              <span class="countdown">(98 days)</span> 
-            </span>
-          </div>
-        </div> -->
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-/* 动态背景 */
-.roadmap-container {
-  background: linear-gradient(135deg, 
-    rgba(245, 245, 245, 0.95) 0%,
-    rgba(255, 255, 255, 0.9) 100%);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 动态标题 */
-.gradient-text {
-  background: linear-gradient(45deg, #00b4d8, #90e0ef);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-}
-
-.pulsating-dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: #00b4d8;
-  border-radius: 50%;
-  margin-left: 1rem;
-  animation: pulse 1.5s infinite;
-}
-
-/* 表格布局 */
-.roadmap-table {
-  display: grid;
-  gap: 1rem;
-}
-
-.table-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 0.5rem;
-}
-
-.table-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  padding: 1rem;
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
-  position: relative;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-/* 交互效果 */
-.table-row:hover {
-  transform: translateX(10px);
-  background: linear-gradient(90deg, 
-    rgba(0, 180, 216, 0.1) 0%,
-    transparent 100%);
-}
-
-/* 状态指示器 */
-.completed .table-cell:first-child {
-  color: #2dc8e3;
-}
-
-.in-progress .table-cell:first-child {
-  color: #f3d025c1;
-}
-
-.upcoming .table-cell:first-child {
-  color: #9aa3ab;
-}
-
-/* 进度条样式 */
-.progress-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.progress {
-  flex-grow: 1;
-  height: 8px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.progress::-webkit-progress-value {
-  background: linear-gradient(90deg, #ffd60a, #ffc300);
-}
-
-/* 时间线动画 */
-@keyframes pulse {
-  0% { opacity: 0.6; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.1); }
-  100% { opacity: 0.6; transform: scale(0.9); }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .roadmap-table {
-    gap: 1rem;
-  }
-
-  .table-row {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-  }
-
-  .table-cell {
-    padding: 0.5rem 0;
-  }
-}
-</style>
-
-
-
+<!-- BibTeX -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3 elegant-title">BibTeX</h2>
-    <pre><code>@misc{li2025predictablescalei,
-  title    = {Predictable Scale: Part I -- Optimal Hyperparameter Scaling Law in Large Language Model Pretraining}, 
-  author   = {Houyi Li and Wenzhen Zheng and Qiufeng Wang and Hanshan Zhang and Zili Wang and Shijie Xuyang and Yuantao Fan and Zhenyu Ding and Haoying Wang and Ning Ding and Shuigeng Zhou and Xiangyu Zhang and Daxin Jiang},
-  year     = {2025},
-  eprint   = {2503.04715},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.LG},
-  url      = {https://arxiv.org/abs/2503.04715}, 
-}
-</code></pre>
-  </div>
-
-  <div class="institutional-logos" style="margin-top: 2rem;">
-    <div style="display: flex; flex-wrap: wrap; gap: 0px; width: 100%; justify-content: center;">
-        <div style="margin: 10px 20px; display: flex; justify-content: center;">
-            <a href="https://platform.stepfun.com" target="_blank" style="display: flex; justify-content: center;">
-                <img src="./static/images/logo1.png" alt="StepFun Logo" style="height: 90px;">
-            </a>
-        </div>
-        <div style="margin: 10px 20px; display: flex; justify-content: center;">
-            <a href="https://www.fudan.edu.cn" target="_blank" style="display: flex; justify-content: center;">
-                <img src="./static/images/logo2.png" alt="Fudan Logo" style="height: 90px;">
-            </a>
-        </div>
-        <div style="margin: 10px 20px; display: flex; justify-content: center;">
-            <a href="https://www.tsinghua.edu.cn" target="_blank" style="display: flex; justify-content: center;">
-                <img src="./static/images/logo3.jpg" alt="Tsinghua Logo" style="height: 90px;">
-            </a>
-        </div>
-        <div style="margin: 10px 20px; display: flex; justify-content: center;">
-            <a href="https://www.megvii.com" target="_blank" style="display: flex; justify-content: center;">
-                <img src="./static/images/logo4.png" alt="Megvii Logo" style="height: 90px;">
-            </a>
-        </div>
-    </div>
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@InProceedings{Wang_2025_ICCV,
+    author    = {Wang, Rui and Sun, Yimu and Guo, Jingxing and Wu, Huisi and Qin, Jing},
+    title     = {GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2025},
+    pages     = {12191-12200}
+}</code></pre>
   </div>
 </section>
 
+<!-- Footer -->
 <footer class="footer">
-  <SCRIPT language=JavaScript>
-    <!--
-    var caution = false
-    function setCookie(name, value, expires, path, domain, secure) {
-      var curCookie = name + "=" + escape(value) +
-        ((expires) ? "; expires=" + expires.toGMTString() : "") +
-        ((path) ? "; path=" + path : "") +
-        ((domain) ? "; domain=" + domain : "") +
-        ((secure) ? "; secure" : "")
-      if (!caution || (name + "=" + escape(value)).length <= 4000)
-        document.cookie = curCookie
-      else
-        if (confirm("Cookie exceeds 4KB and will be cut!"))
-          document.cookie = curCookie
-    }
-    
-    function getCookie(name) {
-      var prefix = name + "="
-      var cookieStartIndex = document.cookie.indexOf(prefix)
-      if (cookieStartIndex == -1)
-        return null
-      var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
-      if (cookieEndIndex == -1)
-        cookieEndIndex = document.cookie.length
-      return unescape(document.cookie.substring(cookieStartIndex + prefix.length, cookieEndIndex))
-    }
-    
-    function deleteCookie(name, path, domain) {
-      if (getCookie(name)) {
-        document.cookie = name + "=" +
-          ((path) ? "; path=" + path : "") +
-          ((domain) ? "; domain=" + domain : "") +
-          "; expires=Thu, 01-Jan-70 00:00:01 GMT"
-      }
-    }
-    
-    function fixDate(date) {
-      var base = new Date(0)
-      var skew = base.getTime()
-      if (skew > 0)
-        date.setTime(date.getTime() - skew)
-    }
-    
-    var now = new Date()
-    fixDate(now)
-    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000)
-    var visits = getCookie("counter")
-    if (!visits)
-      visits = 1
-    else
-      visits = parseInt(visits) + 1
-    setCookie("counter", visits, now)
-    // -->
-  </SCRIPT>
   <div class="container">
-    <!-- <div class="content has-text-centered">
-      <a class="icon-link" href="">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div> -->
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            Website source code based on the <a href="https://nerfies.github.io">Nerfies</a> project page. 
-            If you want to reuse their <a href="https://github.com/nerfies/nerfies.github.io">source code</a>, 
-            please credit them appropriately.
-          </p>
-        </div>
-      </div>
+    <div class="content has-text-centered">
+      <p>
+        Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+      </p>
     </div>
   </div>
-
-
-    
 </footer>
-
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
