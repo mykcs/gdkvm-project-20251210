@@ -21,7 +21,7 @@
   <style>
     /* Global Settings */
     html {
-      font-size: 14px; /* Reduced base font size */
+      font-size: 14px; /* Base font size */
     }
     
     body {
@@ -42,15 +42,16 @@
     /* Typography */
     .publication-title {
       font-family: 'Google Sans', sans-serif;
-      font-size: 2.2rem !important; /* Manually reduced size */
+      font-size: 2.2rem !important; 
+      line-height: 1.3;
     }
 
     .title.is-3 {
-      font-size: 1.5rem !important; /* Smaller section headers */
+      font-size: 1.5rem !important; 
     }
     
     .title.is-4 {
-      font-size: 1.3rem !important; /* Smaller subsection headers */
+      font-size: 1.3rem !important; 
     }
 
     .subtitle {
@@ -69,6 +70,34 @@
       font-size: 0.85rem !important;
     }
 
+    /* Mobile Optimizations */
+    @media screen and (max-width: 768px) {
+      .publication-title {
+        font-size: 1.6rem !important; /* Smaller title on mobile */
+      }
+      .publication-authors {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+      .institutional-affiliations {
+        font-size: 0.75rem !important;
+      }
+      .abstract-box {
+        padding: 1.5rem !important; /* Reduce padding on mobile */
+      }
+      .publication-links .button {
+        margin-bottom: 0.5rem; /* Space out stacked buttons */
+        width: 100%; /* Full width buttons on very small screens? Optional, keeping normal for now */
+      }
+      .hero-body {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+      section.section {
+        padding: 1.5rem 1rem; /* Reduce section padding */
+      }
+    }
+
     /* Abstract & Formula Boxes */
     .abstract-box {
       border-radius: 1rem;
@@ -81,8 +110,10 @@
       padding: 1rem 2rem; 
       margin: 1.5rem auto;
       width: fit-content; 
+      max-width: 100%;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
       border: 1px solid #e0e0e0;
+      overflow-x: auto; /* Scroll for long formulas */
     }
 
     .math-display {
@@ -97,7 +128,7 @@
       margin-bottom: 1rem;
     }
 
-    /* Highlight Title Animation - Updated to Red-Purple-Blue Cycle */
+    /* Highlight Title Animation */
     .highlight-title {
       background: linear-gradient(
         45deg,
@@ -113,8 +144,7 @@
       color: transparent;
       font-style: italic;
       animation: gradientShift 8s ease infinite;
-      line-height: 1.2; /* Better spacing for multi-line title */
-      display: inline-block; /* Helps with gradient rendering on some browsers */
+      display: inline; /* Changed to inline for better wrapping */
     }
 
     @keyframes gradientShift {
@@ -151,27 +181,33 @@
       font-weight: bold;
       color: #7a7a7a;
     }
+    
+    /* Utility for spacing authors */
+    .author-block {
+      display: inline-block;
+      margin: 0 5px;
+    }
 
   </style>
 </head>
 <body>
 
-<section class="hero" style="padding-top: 2rem;">
+<section class="hero" style="padding-top: 1rem;">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">
-            <span class="highlight-title">GDKVM: Echocardiography Video Segmentation via <br> Spatiotemporal Key-Value Memory with Gated Delta Rule</span>
+            <span class="highlight-title">GDKVM: Echocardiography Video Segmentation via <br class="is-hidden-mobile"> Spatiotemporal Key-Value Memory with Gated Delta Rule</span>
           </h1>
           
           <!-- Authors -->
-          <div class="publication-authors">
+          <div class="publication-authors" style="margin-top: 1rem;">
             <span class="author-block">Rui Wang<sup style="font-size: 0.6rem;">1</sup></span>
-            <span class="author-block" style="margin-left: 10px;">Yimu Sun<sup style="font-size: 0.6rem;">1</sup></span>
-            <span class="author-block" style="margin-left: 10px;">Jingxing Guo<sup style="font-size: 0.6rem;">1</sup></span>
-            <span class="author-block" style="margin-left: 10px;">Huisi Wu<sup style="font-size: 0.6rem;">1,*</sup></span>
-            <span class="author-block" style="margin-left: 10px;">Jing Qin<sup style="font-size: 0.6rem;">2</sup></span>
+            <span class="author-block">Yimu Sun<sup style="font-size: 0.6rem;">1</sup></span>
+            <span class="author-block">Jingxing Guo<sup style="font-size: 0.6rem;">1</sup></span>
+            <span class="author-block">Huisi Wu<sup style="font-size: 0.6rem;">1,*</sup></span>
+            <span class="author-block">Jing Qin<sup style="font-size: 0.6rem;">2</sup></span>
           </div>
 
           <div class="institutional-affiliations" style="margin-top: 1rem;">
@@ -183,26 +219,26 @@
           <!-- Buttons - Updated Links -->
           <div class="publication-links" style="margin-top: 1.5rem;">
             <span class="link-block">
-              <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" target="_blank" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fas fa-file-pdf"></i></span>
                 <span>CVF</span>
               </a>
             </span>
             <span class="link-block">
-              <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark">
+              <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="ai ai-arxiv"></i></span>
                 <span>arXiv</span>
               </a>
             </span>
             <span class="link-block">
-              <a href="https://github.com/wangrui2025/GDKVM" target="_blank" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://github.com/wangrui2025/GDKVM" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fab fa-github"></i></span>
                 <span>Code</span>
               </a>
             </span>
             <!-- Updated Reproduction Button to link to new file -->
             <span class="link-block">
-              <a href="Reproduction/index.html" target="_blank" class="external-link button is-normal is-rounded is-dark">
+              <a href="Reproduction/index.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fas fa-cogs"></i></span>
                 <span>Reproduction</span>
               </a>
@@ -220,7 +256,7 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <figure class="image is-centered">
-          <img src="paper/fig/Met/gdkvm.png" alt="GDKVM Architecture Overview">
+          <img src="paper/fig/Met/gdkvm.png" alt="GDKVM Architecture Overview" style="max-width: 100%; height: auto;">
         </figure>
         <figcaption style="font-size: 0.9rem; color: #555; text-align: left; margin-top: 1rem;">
             <strong>Figure 2.</strong> An illustration of GDKVM architecture. Linear Key-Value Association defines frame-to-frame causal relations as the state transition matrix. Gated Delta Rule helps in dynamically managing memory. Key-Pixel Feature Fusion fuses the local key feature, the global key feature with the pixel feature.
@@ -270,35 +306,40 @@
         Echocardiography segmentation faces several challenges such as low contrast, speckle noise, and signal dropout.
       </p>
     </div>
-    <!-- Adjusted to fit 6 images in one row by using 'is-2' for each column (12/6 = 2) -->
-    <!-- Added is-mobile to ensure they stay in one row on mobile devices -->
-    <div class="columns is-centered is-mobile">
-      <div class="column is-2">
+    <!-- 
+      Grid Optimization:
+      is-multiline: Allow wrapping
+      is-mobile: Preserve columns on mobile
+      is-4-mobile: 3 images per row on mobile (12/4 = 3)
+      is-2-tablet: 6 images per row on tablet/desktop (12/2 = 6)
+    -->
+    <div class="columns is-centered is-multiline is-mobile">
+      <div class="column is-4-mobile is-2-tablet">
         <figure class="image">
           <img src="paper/fig/challenge/cha_1.jpg" alt="Challenge 1">
         </figure>
       </div>
-      <div class="column is-2">
+      <div class="column is-4-mobile is-2-tablet">
         <figure class="image">
           <img src="paper/fig/challenge/cha_2.jpg" alt="Challenge 2">
         </figure>
       </div>
-      <div class="column is-2">
+      <div class="column is-4-mobile is-2-tablet">
         <figure class="image">
           <img src="paper/fig/challenge/cha_3.jpg" alt="Challenge 3">
         </figure>
       </div>
-      <div class="column is-2">
+      <div class="column is-4-mobile is-2-tablet">
         <figure class="image">
           <img src="paper/fig/challenge/cha_4.jpg" alt="Challenge 4">
         </figure>
       </div>
-      <div class="column is-2">
+      <div class="column is-4-mobile is-2-tablet">
         <figure class="image">
           <img src="paper/fig/challenge/cha_5.jpg" alt="Challenge 5">
         </figure>
       </div>
-      <div class="column is-2">
+      <div class="column is-4-mobile is-2-tablet">
         <figure class="image">
           <img src="paper/fig/challenge/cha_6.jpg" alt="Challenge 6">
         </figure>
@@ -336,8 +377,6 @@
     </div>
   </div>
 </section>
-
-<!-- Reproduction Guide Section REMOVED -->
 
 <!-- Footer -->
 <footer class="footer">
