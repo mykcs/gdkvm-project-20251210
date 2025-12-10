@@ -354,7 +354,14 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title is-3">BibTeX</h2>
-    <pre><code>@InProceedings{Wang_2025_ICCV,
+    <div style="position: relative;">
+      <button class="button is-small is-light copy-btn" onclick="copyBibtex()" style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10;">
+        <span class="icon">
+          <i class="fas fa-copy"></i>
+        </span>
+        <span>Copy</span>
+      </button>
+      <pre><code id="bibtex-content">@InProceedings{Wang_2025_ICCV,
     author    = {Wang, Rui and Sun, Yimu and Guo, Jingxing and Wu, Huisi and Qin, Jing},
     title     = {GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule},
     booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
@@ -362,6 +369,7 @@
     year      = {2025},
     pages     = {12191-12200}
 }</code></pre>
+    </div>
   </div>
 </section>
 
@@ -386,6 +394,38 @@
       throwOnError: false
     });
   });
+
+  function copyBibtex() {
+    const content = document.getElementById('bibtex-content').innerText;
+    const textArea = document.createElement("textarea");
+    textArea.value = content;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      const btn = document.querySelector('.copy-btn');
+      const icon = btn.querySelector('.icon i');
+      const text = btn.querySelector('span:last-child');
+      
+      const originalIconClass = icon.className;
+      const originalText = text.innerText;
+
+      icon.className = 'fas fa-check';
+      text.innerText = 'Copied!';
+      btn.classList.remove('is-light');
+      btn.classList.add('is-success');
+
+      setTimeout(() => {
+        icon.className = 'fas fa-copy';
+        text.innerText = 'Copy';
+        btn.classList.remove('is-success');
+        btn.classList.add('is-light');
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy', err);
+    }
+    document.body.removeChild(textArea);
+  }
 </script>
 
 </body>
