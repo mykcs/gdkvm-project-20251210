@@ -71,25 +71,22 @@
       margin-bottom: 1rem;
     }
 
-    /* Highlight Title Animation */
+    /* Highlight Title Animation - Updated to Red-Purple-Blue Cycle */
     .highlight-title {
       background: linear-gradient(
         45deg,
-        #005c3f,
-        #37804c,
-        #519575,
-        #50bc90,
-        #56ef75,
-        #70f971,
-        #43ff7c,
-        #00ffa6
+        #ff3b30, /* Red */
+        #af52de, /* Purple */
+        #007aff, /* Blue */
+        #af52de, /* Purple */
+        #ff3b30  /* Red */
       );
-      background-size: 400% 400%;
+      background-size: 300% 300%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       font-style: italic;
-      animation: gradientShift 12s ease infinite;
+      animation: gradientShift 8s ease infinite;
     }
 
     @keyframes gradientShift {
@@ -155,10 +152,10 @@
               <span style="display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #666;">*Corresponding Author: hswu@szu.edu.cn</span>
           </div>
 
-          <!-- Buttons -->
+          <!-- Buttons - Updated Links -->
           <div class="publication-links" style="margin-top: 1.5rem;">
             <span class="link-block">
-              <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" class="external-link button is-normal is-rounded is-dark">
                 <span class="icon"><i class="fas fa-file-pdf"></i></span>
                 <span>Paper</span>
               </a>
@@ -170,7 +167,7 @@
               </a>
             </span>
             <span class="link-block">
-              <a href="#" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://github.com/wangrui2025/GDKVM" class="external-link button is-normal is-rounded is-dark">
                 <span class="icon"><i class="fab fa-github"></i></span>
                 <span>Code</span>
               </a>
