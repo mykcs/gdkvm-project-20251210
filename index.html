@@ -173,6 +173,13 @@
                 <span>Code</span>
               </a>
             </span>
+            <!-- Added Reproduction Button -->
+            <span class="link-block">
+              <a href="#Reproduction" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-cogs"></i></span>
+                <span>Reproduction</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -189,7 +196,7 @@
           <img src="paper/fig/Met/gdkvm.png" alt="GDKVM Architecture Overview">
         </figure>
         <figcaption style="font-size: 0.9rem; color: #555; text-align: center; margin-top: 1rem;">
-            <strong>Figure 1.</strong> Overview of the GDKVM architecture for robust echocardiography video segmentation.
+            <strong>Figure 1.</strong> An illustration of GDKVM architecture. Linear Key-Value Association defines frame-to-frame causal relations as the state transition matrix. Gated Delta Rule helps in dynamically managing memory. Key-Pixel Feature Fusion fuses the local key feature, the global key feature with the pixel feature.
         </figcaption>
       </div>
     </div>
@@ -322,6 +329,47 @@
     pages     = {12191-12200}
 }</code></pre>
     </div>
+  </div>
+</section>
+
+<!-- Reproduction Guide -->
+<section class="section" id="Reproduction">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Reproduction Guide</h2>
+    
+    <h4 class="title is-4">1. Environment Setup</h4>
+    <p>
+      The code is implemented using PyTorch. We recommend using Anaconda to manage the environment.
+    </p>
+    <pre><code>conda create -n gdkvm python=3.8
+conda activate gdkvm
+pip install torch==1.13.0 torchvision==0.14.0 --extra-index-url https://download.pytorch.org/whl/cu116
+pip install -r requirements.txt</code></pre>
+
+    <h4 class="title is-4">2. Data Preparation</h4>
+    <p>
+      We use <strong>CAMUS</strong> and <strong>EchoNet-Dynamic</strong> datasets. Please download them from their official websites and organize the data as follows:
+    </p>
+    <pre><code>./data
+├── CAMUS
+│   ├── training
+│   └── testing
+└── EchoNet-Dynamic
+    ├── FileList.csv
+    ├── VolumeTracings.csv
+    └── Videos</code></pre>
+
+    <h4 class="title is-4">3. Training</h4>
+    <p>
+      To train the GDKVM model on the CAMUS dataset, run the following command. The checkpoints will be saved in the <code>./checkpoints</code> directory.
+    </p>
+    <pre><code>python train.py --dataset camus --batch_size 8 --epochs 100 --lr 1e-4 --save_dir ./checkpoints/camus_gdkvm</code></pre>
+
+    <h4 class="title is-4">4. Inference & Evaluation</h4>
+    <p>
+      To evaluate the pre-trained model, run:
+    </p>
+    <pre><code>python test.py --dataset camus --resume ./checkpoints/camus_gdkvm/best_model.pth --eval_metrics DSC HD95</code></pre>
   </div>
 </section>
 
