@@ -2,211 +2,83 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GDKVM ICCV'25</title>
-  <link rel="icon" href="paper/fig/thum/Thum.png">
+  <title>Reproduction Guide - GDKVM</title>
+  <!-- Updated path: go up one level to access paper folder -->
+  <link rel="icon" href="../paper/fig/thum/Thum.png">
 
   <!-- External Stylesheets (CDNs) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-
-  <!-- External Scripts (CDNs) -->
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
   <style>
     /* Global Settings */
-    html {
-      font-size: 14px; /* Reduced base font size */
-    }
-    
-    body {
-      font-family: 'Noto Sans', sans-serif;
-      background-color: #ffffff;
-      color: #4a4a4a;
-    }
-    
-    a {
-      color: #3273dc;
-      transition: color 0.2s;
-    }
-    
-    a:hover {
-      color: #1a237e;
-    }
+    html { font-size: 14px; }
+    body { font-family: 'Noto Sans', sans-serif; background-color: #ffffff; color: #4a4a4a; }
+    a { color: #3273dc; transition: color 0.2s; }
+    a:hover { color: #1a237e; }
 
     /* Typography */
-    .publication-title {
-      font-family: 'Google Sans', sans-serif;
-      font-size: 2.2rem !important; /* Manually reduced size */
-    }
-
-    .title.is-3 {
-      font-size: 1.5rem !important; /* Smaller section headers */
-    }
+    .publication-title { font-family: 'Google Sans', sans-serif; font-size: 2.2rem !important; }
+    .title.is-3 { font-size: 1.5rem !important; }
+    .title.is-4 { font-size: 1.3rem !important; margin-top: 1.5rem; }
+    .content { font-size: 1rem; }
     
-    .title.is-4 {
-      font-size: 1.3rem !important; /* Smaller subsection headers */
-    }
-
-    .subtitle {
-      font-family: 'Google Sans', sans-serif;
-    }
-    
-    .content {
-      font-size: 1rem;
-    }
-    
-    .publication-authors {
-      font-size: 1.1rem;
-    }
-    
-    .institutional-affiliations {
-      font-size: 0.85rem !important;
-    }
-
-    /* Abstract & Formula Boxes */
-    .abstract-box {
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    }
-    
-    .formula-container {
-      background: #f8f9fa; 
-      border-radius: 15px;  
-      padding: 1rem 2rem; 
-      margin: 1.5rem auto;
-      width: fit-content; 
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
-      border: 1px solid #e0e0e0;
-    }
-
-    .math-display {
-      text-align: center;
-      padding: 0.5rem;
-      overflow-x: auto;
-    }
-
-    .formula-caption {
-      border-left: 4px solid #3298dc;
-      padding-left: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Highlight Title Animation - Updated to Red-Purple-Blue Cycle */
-    .highlight-title {
-      background: linear-gradient(
-        45deg,
-        #ff3b30, /* Red */
-        #af52de, /* Purple */
-        #007aff, /* Blue */
-        #af52de, /* Purple */
-        #ff3b30  /* Red */
-      );
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-style: italic;
-      animation: gradientShift 8s ease infinite;
-      line-height: 1.2; /* Better spacing for multi-line title */
-      display: inline-block; /* Helps with gradient rendering on some browsers */
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Image Placeholders */
-    .figure-placeholder {
-      background: #fcfcfc;
-      border: 2px dashed #dbdbdb;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem;
-      margin-bottom: 1.5rem;
-      color: #b5b5b5;
+    /* Code Block Styles */
+    .code-container {
       position: relative;
-      overflow: hidden;
-      min-height: 300px;
-    }
-
-    .figure-placeholder svg {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 1rem;
-      fill: #dbdbdb;
+      margin-bottom: 1.5rem;
     }
     
-    .figure-label {
-      font-weight: bold;
-      color: #7a7a7a;
+    pre { 
+      background-color: #f5f5f5; 
+      padding: 1rem; 
+      border-radius: 4px; 
+      overflow-x: auto; 
+    }
+    
+    code { 
+      font-family: monospace; 
+      background-color: transparent; 
+      padding: 0; 
+      color: #333; 
     }
 
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    
+    .copy-btn:hover {
+      opacity: 1;
+    }
+
+    /* Hero Section */
+    .hero { background-color: #f8f9fa; margin-bottom: 2rem; }
   </style>
 </head>
 <body>
 
-<section class="hero" style="padding-top: 2rem;">
+<!-- Header / Hero -->
+<section class="hero is-light">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">
-            <span class="highlight-title">GDKVM: Echocardiography Video Segmentation via <br> Spatiotemporal Key-Value Memory with Gated Delta Rule</span>
-          </h1>
+          <h1 class="title is-1 publication-title">Reproduction Guide</h1>
+          <p class="subtitle is-4">GDKVM: Echocardiography Video Segmentation</p>
           
-          <!-- Authors -->
-          <div class="publication-authors">
-            <span class="author-block">Rui Wang<sup style="font-size: 0.6rem;">1</sup>,</span>
-            <span class="author-block">Yimu Sun<sup style="font-size: 0.6rem;">1</sup>,</span>
-            <span class="author-block">Jingxing Guo<sup style="font-size: 0.6rem;">1</sup>,</span>
-            <span class="author-block">Huisi Wu<sup style="font-size: 0.6rem;">1,*</sup>,</span>
-            <span class="author-block">Jing Qin<sup style="font-size: 0.6rem;">2</sup></span>
-          </div>
-
-          <div class="institutional-affiliations" style="margin-top: 1rem;">
-              <span style="display: block; margin-bottom: 0.2rem;"><sup style="font-size: 0.6rem;">1</sup>College of Computer Science and Software Engineering, Shenzhen University</span>
-              <span style="display: block;"><sup style="font-size: 0.6rem;">2</sup>Centre for Smart Health, School of Nursing, The Hong Kong Polytechnic University</span>
-              <span style="display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #666;">*Corresponding Author: hswu@szu.edu.cn</span>
-          </div>
-
-          <!-- Buttons - Updated Links -->
-          <div class="publication-links" style="margin-top: 1.5rem;">
-            <span class="link-block">
-              <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                <span>Paper</span>
-              </a>
-            </span>
-            <span class="link-block">
-              <a href="#" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="ai ai-arxiv"></i></span>
-                <span>arXiv</span>
-              </a>
-            </span>
-            <span class="link-block">
-              <a href="https://github.com/wangrui2025/GDKVM" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code</span>
-              </a>
-            </span>
-            <!-- Updated Reproduction Button to link to new file -->
-            <span class="link-block">
-              <a href="Reproduction/index.html" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="fas fa-cogs"></i></span>
-                <span>Reproduction</span>
-              </a>
-            </span>
+          <div style="margin-top: 1.5rem;">
+            <!-- Updated path: go up one level to access index.html -->
+            <a href="../index.html" class="button is-dark is-rounded">
+              <span class="icon"><i class="fas fa-arrow-left"></i></span>
+              <span>Back to Main Page</span>
+            </a>
           </div>
         </div>
       </div>
@@ -214,152 +86,69 @@
   </div>
 </section>
 
-<!-- Teaser Figure -->
+<!-- Content -->
 <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <figure class="image is-centered">
-          <img src="paper/fig/Met/gdkvm.png" alt="GDKVM Architecture Overview">
-        </figure>
-        <figcaption style="font-size: 0.9rem; color: #555; text-align: left; margin-top: 1rem;">
-            <strong>Figure 1.</strong> An illustration of GDKVM architecture. Linear Key-Value Association defines frame-to-frame causal relations as the state transition matrix. Gated Delta Rule helps in dynamically managing memory. Key-Pixel Feature Fusion fuses the local key feature, the global key feature with the pixel feature.
-        </figcaption>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Abstract -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="abstract-box has-background-white-bis p-6">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              Accurate segmentation of cardiac chambers in echocardiography sequences is crucial for the quantitative analysis of cardiac function, aiding in clinical diagnosis and treatment.
-              The imaging noise, artifacts, and the deformation and motion of the heart pose challenges to segmentation algorithms.
-            </p>
-            <p>
-              While existing methods based on convolutional neural networks, Transformers and space-time memory networks, have improved segmentation accuracy, they often struggle with the trade-off between capturing long-range spatiotemporal dependencies and maintaining computational efficiency with fine-grained feature representation.
-            </p>
-            <p>
-              In this paper, we introduce <strong>GDKVM</strong>, a novel architecture for echocardiography video segmentation.
-              The model employs Linear Key-Value Association (LKVA) to effectively model inter-frame correlations, and introduces Gated Delta Rule (GDR) to efficiently store intermediate memory states. Key-Pixel Feature Fusion (KPFF) module is designed to integrate local and global features at multiple scales, enhancing robustness against boundary blurring and noise interference.
-            </p>
-            <p>
-              We validated GDKVM on two mainstream echocardiography video datasets (CAMUS and EchoNet-Dynamic) and compared it with various state-of-the-art methods.
-              Experimental results show that GDKVM outperforms existing approaches in terms of segmentation accuracy and robustness, while ensuring real-time performance.
-              Codes are available at <a href="https://github.com/wangrui2025/GDKVM" target="_blank">https://github.com/wangrui2025/GDKVM</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Methodology Placeholder -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h3 class="title is-4">Methodology</h3>
-    <div class="content has-text-justified">
-      <p>
-        The core contribution of our work lies in the <strong>Gated Delta Rule</strong> for memory updates. Unlike traditional memory networks that overwrite or simply accumulate information, our mechanism selectively updates the Key-Value memory banks based on the relevance of new frame features.
-      </p>
-    </div>
-    
-    <div class="columns is-centered">
-      <div class="column">
-        <figure class="image">
-          <img src="paper/fig/Met/Gated_Delta_Rule.png" alt="Gated Delta Rule">
-          <figcaption class="has-text-centered mt-2">
-            <strong>Figure 2.</strong> Illustration of the Gated Delta Rule for memory updates.
-          </figcaption>
-        </figure>
-      </div>
-      <div class="column">
-        <figure class="image">
-          <img src="paper/fig/Met/kpff.png" alt="Key-Pixel Feature Fusion">
-          <figcaption class="has-text-centered mt-2">
-            <strong>Figure 3.</strong> Key-Pixel Feature Fusion (KPFF) module.
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-<!-- Challenges -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h3 class="title is-4">Challenges in Echocardiography Segmentation</h3>
-    <div class="content">
-      <p>
-        Echocardiography segmentation faces several challenges such as low contrast, speckle noise, and signal dropout.
-      </p>
-    </div>
-    <!-- Adjusted to fit 6 images in one row by using 'is-2' for each column (12/6 = 2) -->
-    <div class="columns is-centered">
-      <div class="column is-2">
-        <figure class="image">
-          <img src="paper/fig/challenge/cha_1.jpg" alt="Challenge 1">
-        </figure>
-      </div>
-      <div class="column is-2">
-        <figure class="image">
-          <img src="paper/fig/challenge/cha_2.jpg" alt="Challenge 2">
-        </figure>
-      </div>
-      <div class="column is-2">
-        <figure class="image">
-          <img src="paper/fig/challenge/cha_3.jpg" alt="Challenge 3">
-        </figure>
-      </div>
-      <div class="column is-2">
-        <figure class="image">
-          <img src="paper/fig/challenge/cha_4.jpg" alt="Challenge 4">
-        </figure>
-      </div>
-      <div class="column is-2">
-        <figure class="image">
-          <img src="paper/fig/challenge/cha_5.jpg" alt="Challenge 5">
-        </figure>
-      </div>
-      <div class="column is-2">
-        <figure class="image">
-          <img src="paper/fig/challenge/cha_6.jpg" alt="Challenge 6">
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BibTeX -->
-<section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3">BibTeX</h2>
-    <div style="position: relative;">
-      <button class="button is-small is-light copy-btn" onclick="copyBibtex()" style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10;">
-        <span class="icon">
-          <i class="fas fa-copy"></i>
-        </span>
+    
+    <h4 class="title is-4">1. Environment Setup</h4>
+    <p>
+      The code is implemented using PyTorch. We recommend using Anaconda to manage the environment.
+    </p>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
         <span>Copy</span>
       </button>
-      <pre><code id="bibtex-content">@InProceedings{Wang_2025_ICCV,
-    author    = {Wang, Rui and Sun, Yimu and Guo, Jingxing and Wu, Huisi and Qin, Jing},
-    title     = {GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2025},
-    pages     = {12191-12200}
-}</code></pre>
+      <pre><code>conda create -n gdkvm python=3.8
+conda activate gdkvm
+pip install torch==1.13.0 torchvision==0.14.0 --extra-index-url https://download.pytorch.org/whl/cu116
+pip install -r requirements.txt</code></pre>
+    </div>
+
+    <h4 class="title is-4">2. Data Preparation</h4>
+    <p>
+      We use <strong>CAMUS</strong> and <strong>EchoNet-Dynamic</strong> datasets. Please download them from their official websites and organize the data as follows:
+    </p>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>./data
+├── CAMUS
+│   ├── training
+│   └── testing
+└── EchoNet-Dynamic
+    ├── FileList.csv
+    ├── VolumeTracings.csv
+    └── Videos</code></pre>
+    </div>
+
+    <h4 class="title is-4">3. Training</h4>
+    <p>
+      To train the GDKVM model on the CAMUS dataset, run the following command. The checkpoints will be saved in the <code>./checkpoints</code> directory.
+    </p>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>python train.py --dataset camus --batch_size 8 --epochs 100 --lr 1e-4 --save_dir ./checkpoints/camus_gdkvm</code></pre>
+    </div>
+
+    <h4 class="title is-4">4. Inference & Evaluation</h4>
+    <p>
+      To evaluate the pre-trained model, run:
+    </p>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>python test.py --dataset camus --resume ./checkpoints/camus_gdkvm/best_model.pth --eval_metrics DSC HD95</code></pre>
     </div>
   </div>
 </section>
-
-<!-- Reproduction Guide Section REMOVED -->
 
 <!-- Footer -->
 <footer class="footer">
@@ -373,46 +162,43 @@
 </footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        { left: "$$", right: "$$", display: true },
-        { left: "$", right: "$", display: false }
-      ],
-      throwOnError: false
-    });
-  });
+  function copyCode(btn) {
+    // Find the code block associated with the button
+    const pre = btn.nextElementSibling;
+    const code = pre.querySelector('code');
+    const text = code.innerText;
 
-  function copyBibtex() {
-    const content = document.getElementById('bibtex-content').innerText;
-    const textArea = document.createElement("textarea");
-    textArea.value = content;
-    document.body.appendChild(textArea);
-    textArea.select();
+    // Create a temporary textarea to copy text
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    
     try {
       document.execCommand('copy');
-      const btn = document.querySelector('.copy-btn');
-      const icon = btn.querySelector('.icon i');
-      const text = btn.querySelector('span:last-child');
       
-      const originalIconClass = icon.className;
-      const originalText = text.innerText;
-
+      // Visual feedback
+      const icon = btn.querySelector('.icon i');
+      const textSpan = btn.querySelector('span:last-child');
+      
       icon.className = 'fas fa-check';
-      text.innerText = 'Copied!';
+      textSpan.innerText = 'Copied!';
       btn.classList.remove('is-light');
       btn.classList.add('is-success');
 
+      // Reset after 2 seconds
       setTimeout(() => {
         icon.className = 'fas fa-copy';
-        text.innerText = 'Copy';
+        textSpan.innerText = 'Copy';
         btn.classList.remove('is-success');
         btn.classList.add('is-light');
       }, 2000);
+      
     } catch (err) {
       console.error('Failed to copy', err);
     }
-    document.body.removeChild(textArea);
+    
+    document.body.removeChild(textarea);
   }
 </script>
 
