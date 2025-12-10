@@ -20,6 +20,10 @@
 
   <style>
     /* Global Settings */
+    html {
+      font-size: 14px; /* Reduced base font size */
+    }
+    
     body {
       font-family: 'Noto Sans', sans-serif;
       background-color: #ffffff;
@@ -38,10 +42,31 @@
     /* Typography */
     .publication-title {
       font-family: 'Google Sans', sans-serif;
+      font-size: 2.2rem !important; /* Manually reduced size */
+    }
+
+    .title.is-3 {
+      font-size: 1.5rem !important; /* Smaller section headers */
+    }
+    
+    .title.is-4 {
+      font-size: 1.3rem !important; /* Smaller subsection headers */
     }
 
     .subtitle {
       font-family: 'Google Sans', sans-serif;
+    }
+    
+    .content {
+      font-size: 1rem;
+    }
+    
+    .publication-authors {
+      font-size: 1.1rem;
+    }
+    
+    .institutional-affiliations {
+      font-size: 0.85rem !important;
     }
 
     /* Abstract & Formula Boxes */
@@ -88,6 +113,8 @@
       color: transparent;
       font-style: italic;
       animation: gradientShift 8s ease infinite;
+      line-height: 1.2; /* Better spacing for multi-line title */
+      display: inline-block; /* Helps with gradient rendering on some browsers */
     }
 
     @keyframes gradientShift {
@@ -135,7 +162,7 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">
-            <span class="highlight-title">GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule</span>
+            <span class="highlight-title">GDKVM: Echocardiography Video Segmentation via <br> Spatiotemporal Key-Value Memory with Gated Delta Rule</span>
           </h1>
           
           <!-- Authors -->
@@ -147,7 +174,7 @@
             <span class="author-block">Jing Qin<sup style="font-size: 0.6rem;">2</sup></span>
           </div>
 
-          <div class="institutional-affiliations" style="margin-top: 1rem; font-size: 0.9rem;">
+          <div class="institutional-affiliations" style="margin-top: 1rem;">
               <span style="display: block; margin-bottom: 0.2rem;"><sup style="font-size: 0.6rem;">1</sup>College of Computer Science and Software Engineering, Shenzhen University</span>
               <span style="display: block;"><sup style="font-size: 0.6rem;">2</sup>Centre for Smart Health, School of Nursing, The Hong Kong Polytechnic University</span>
               <span style="display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #666;">*Corresponding Author: hswu@szu.edu.cn</span>
