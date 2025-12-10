@@ -227,20 +227,20 @@
             <span class="link-block">
               <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="ai ai-arxiv"></i></span>
-                <span>arXiv</span>
+                <span>[todo]arXiv</span>
               </a>
             </span>
             <span class="link-block">
               <a href="https://github.com/wangrui2025/GDKVM" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code</span>
+                <span>[todo]Code</span>
               </a>
             </span>
             <!-- Updated Reproduction Button to link to new file -->
             <span class="link-block">
               <a href="Reproduction/index.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fas fa-cogs"></i></span>
-                <span>Reproduction</span>
+                <span>[todo]Reproduction</span>
               </a>
             </span>
           </div>
@@ -250,7 +250,7 @@
   </div>
 </section>
 
-<!-- Teaser Figure -->
+<!-- Teaser Figure (Swapped to Figure 1) -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -259,7 +259,7 @@
           <img src="paper/fig/Met/gdkvm.png" alt="GDKVM Architecture Overview" style="max-width: 100%; height: auto;">
         </figure>
         <figcaption style="font-size: 0.9rem; color: #555; text-align: left; margin-top: 1rem;">
-            <strong>Figure 2.</strong> An illustration of GDKVM architecture. Linear Key-Value Association defines frame-to-frame causal relations as the state transition matrix. Gated Delta Rule helps in dynamically managing memory. Key-Pixel Feature Fusion fuses the local key feature, the global key feature with the pixel feature.
+            <strong>Figure 1.</strong> An illustration of GDKVM architecture. Linear Key-Value Association defines frame-to-frame causal relations as the state transition matrix. Gated Delta Rule helps in dynamically managing memory. Key-Pixel Feature Fusion fuses the local key feature, the global key feature with the pixel feature.
         </figcaption>
       </div>
     </div>
@@ -297,7 +297,7 @@
   </div>
 </section>
 
-<!-- Challenges -->
+<!-- Challenges (Swapped to Figure 2) -->
 <section class="section">
   <div class="container is-max-desktop">
     <h3 class="title is-4">Challenges in Echocardiography Segmentation</h3>
@@ -312,42 +312,49 @@
       is-mobile: Preserve columns on mobile
       is-4-mobile: 3 images per row on mobile (12/4 = 3)
       is-2-tablet: 6 images per row on tablet/desktop (12/2 = 6)
+      Added (a)-(f) labels below each image
     -->
-    <div class="columns is-centered is-multiline is-mobile">
+    <div class="columns is-centered is-multiline is-mobile has-text-centered">
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image">
+        <figure class="image mb-1">
           <img src="paper/fig/challenge/cha_1.jpg" alt="Challenge 1">
         </figure>
+        <p>(a)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image">
+        <figure class="image mb-1">
           <img src="paper/fig/challenge/cha_2.jpg" alt="Challenge 2">
         </figure>
+        <p>(b)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image">
+        <figure class="image mb-1">
           <img src="paper/fig/challenge/cha_3.jpg" alt="Challenge 3">
         </figure>
+        <p>(c)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image">
+        <figure class="image mb-1">
           <img src="paper/fig/challenge/cha_4.jpg" alt="Challenge 4">
         </figure>
+        <p>(d)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image">
+        <figure class="image mb-1">
           <img src="paper/fig/challenge/cha_5.jpg" alt="Challenge 5">
         </figure>
+        <p>(e)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image">
+        <figure class="image mb-1">
           <img src="paper/fig/challenge/cha_6.jpg" alt="Challenge 6">
         </figure>
+        <p>(f)</p>
       </div>
     </div>
     <div class="has-text-centered">
       <p style="font-size: 0.9rem; color: #555; text-align: center; margin-top: 1rem;">
-        <strong>Figure 1.</strong> Illustrative challenges for echocardiography video segmentation: (a) speckle noise, (b) indistinct or blurred contours,
+        <strong>Figure 2.</strong> Illustrative challenges for echocardiography video segmentation: (a) speckle noise, (b) indistinct or blurred contours,
         and (c-f) the substantial changes in the target’s shape and scale
         throughout the cardiac cycle.
       </p>
