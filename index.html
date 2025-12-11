@@ -21,7 +21,7 @@
   <style>
     /* Global Settings */
     html {
-      font-size: 14px; /* Base font size */
+      font-size: 14px; /* Reduced base font size */
     }
     
     body {
@@ -73,7 +73,7 @@
     /* Mobile Optimizations */
     @media screen and (max-width: 768px) {
       .publication-title {
-        font-size: 1.6rem !important; /* Smaller title on mobile */
+        font-size: 1.6rem !important; 
       }
       .publication-authors {
         font-size: 1rem;
@@ -83,18 +83,18 @@
         font-size: 0.75rem !important;
       }
       .abstract-box {
-        padding: 1.5rem !important; /* Reduce padding on mobile */
+        padding: 1.5rem !important; 
       }
       .publication-links .button {
-        margin-bottom: 0.5rem; /* Space out stacked buttons */
-        width: 100%; /* Full width buttons on very small screens? Optional, keeping normal for now */
+        margin-bottom: 0.5rem; 
+        width: 100%; 
       }
       .hero-body {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
       }
       section.section {
-        padding: 1.5rem 1rem; /* Reduce section padding */
+        padding: 1.5rem 1rem; 
       }
     }
 
@@ -104,30 +104,6 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
     
-    .formula-container {
-      background: #f8f9fa; 
-      border-radius: 15px;  
-      padding: 1rem 2rem; 
-      margin: 1.5rem auto;
-      width: fit-content; 
-      max-width: 100%;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
-      border: 1px solid #e0e0e0;
-      overflow-x: auto; /* Scroll for long formulas */
-    }
-
-    .math-display {
-      text-align: center;
-      padding: 0.5rem;
-      overflow-x: auto;
-    }
-
-    .formula-caption {
-      border-left: 4px solid #3298dc;
-      padding-left: 1rem;
-      margin-bottom: 1rem;
-    }
-
     /* Highlight Title Animation */
     .highlight-title {
       background: linear-gradient(
@@ -144,7 +120,7 @@
       color: transparent;
       font-style: italic;
       animation: gradientShift 8s ease infinite;
-      display: inline; /* Changed to inline for better wrapping */
+      display: inline; 
     }
 
     @keyframes gradientShift {
@@ -169,26 +145,50 @@
       overflow: hidden;
       min-height: 300px;
     }
-
-    .figure-placeholder svg {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 1rem;
-      fill: #dbdbdb;
-    }
     
     .figure-label {
       font-weight: bold;
       color: #7a7a7a;
     }
     
-    /* Utility for spacing authors */
     .author-block {
       display: inline-block;
       margin: 0 5px;
     }
 
+    /* Iframe Styling for Abstract */
+    .abstract-iframe {
+      width: 100%;
+      border: none;
+      overflow: hidden;
+      display: block;
+    }
+
   </style>
+  
+  <script>
+    // Function to resize iframe automatically - Defined in HEAD to prevent ReferenceError
+    function resizeIframe(obj) {
+      // Inject styles into iframe to ensure font consistency
+      var css = 'body { font-family: "Noto Sans", sans-serif; color: #4a4a4a; font-size: 1rem; text-align: left; margin: 0; line-height: 1.5; }';
+      try {
+        var head = obj.contentWindow.document.head;
+        var style = obj.contentWindow.document.createElement('style');
+
+        if (style.styleSheet) {
+          style.styleSheet.cssText = css;
+        } else {
+          style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+
+        // Adjust height
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+      } catch (e) {
+        console.warn("Cross-origin restriction or iframe not ready:", e);
+      }
+    }
+  </script>
 </head>
 <body>
 
@@ -216,7 +216,7 @@
               <span style="display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #666;">2400101058@mails.szu.edu.cn, *Corresponding Author: hswu@szu.edu.cn</span>
           </div>
 
-          <!-- Buttons - Updated Links -->
+          <!-- Buttons -->
           <div class="publication-links" style="margin-top: 1.5rem;">
             <span class="link-block">
               <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
@@ -236,7 +236,6 @@
                 <span>[todo]Code</span>
               </a>
             </span>
-            <!-- Updated Reproduction Button to link to new file -->
             <span class="link-block">
               <a href="Reproduction/index.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fas fa-cogs"></i></span>
@@ -250,7 +249,7 @@
   </div>
 </section>
 
-<!-- Teaser Figure (Swapped to Figure 1) -->
+<!-- Teaser Figure -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -266,17 +265,28 @@
   </div>
 </section>
 
-<!-- Abstract -->
-<div id="abstract-container"></div>
-<script>
-  fetch('sections/abstract.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('abstract-container').innerHTML = data;
-    });
-</script>
+<!-- Abstract (Via Iframe for Robustness) -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="abstract-box has-background-white-bis p-6">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <!-- Iframe loading the abstract file -->
+          <iframe 
+            src="sections/abstract.html" 
+            class="abstract-iframe" 
+            id="abstract-frame"
+            onload="resizeIframe(this)"
+            scrolling="no">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Challenges (Swapped to Figure 2) -->
+<!-- Challenges -->
 <section class="section">
   <div class="container is-max-desktop">
     <h3 class="title is-4">Challenges in Echocardiography Segmentation</h3>
@@ -285,14 +295,6 @@
         Echocardiography segmentation faces several challenges such as low contrast, speckle noise, and signal dropout.
       </p>
     </div>
-    <!-- 
-      Grid Optimization:
-      is-multiline: Allow wrapping
-      is-mobile: Preserve columns on mobile
-      is-4-mobile: 3 images per row on mobile (12/4 = 3)
-      is-2-tablet: 6 images per row on tablet/desktop (12/2 = 6)
-      Added (a)-(f) labels below each image
-    -->
     <div class="columns is-centered is-multiline is-mobile has-text-centered">
       <div class="column is-4-mobile is-2-tablet">
         <figure class="image mb-1">
@@ -368,8 +370,8 @@
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <p>
-        Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+      <p style="font-size: 0.9rem;">
+        Project page template from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>.
       </p>
     </div>
   </div>
