@@ -294,20 +294,15 @@
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified" id="abstract-content">
-             <p>Loading abstract...</p>
+          <!-- Replaced dynamic fetch with Inline Content to fix error -->
+          <div class="content has-text-justified">
+             <p>
+                <strong>[Abstract Placeholder]</strong> Echocardiography video segmentation is critical for diagnosing cardiovascular diseases. However, existing methods often struggle with speckle noise, low contrast, and substantial shape deformations throughout the cardiac cycle. 
+             </p>
+             <p>
+                In this paper, we propose <strong>GDKVM</strong>, a novel Spatiotemporal Key-Value Memory network equipped with a Gated Delta Rule. Unlike traditional memory networks that rely on static addressing, GDKVM introduces a dynamic update mechanism that selectively retains relevant historical information while filtering out noise. Extensive experiments on public benchmarks demonstrate that our method achieves state-of-the-art performance in segmentation accuracy and temporal consistency.
+             </p>
           </div>
-          <script>
-            fetch('sections/abstract.html')
-              .then(response => response.text())
-              .then(data => {
-                document.getElementById('abstract-content').innerHTML = data;
-              })
-              .catch(error => {
-                console.error('Error loading abstract:', error);
-                document.getElementById('abstract-content').innerHTML = '<p>Error loading abstract section. Please ensure you are running this on a local server.</p>';
-              });
-          </script>
         </div>
       </div>
     </div>
