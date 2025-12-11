@@ -15,22 +15,24 @@
     /* Global Settings */
     html { font-size: 14px; }
     body { font-family: 'Noto Sans', 'Noto Sans SC', sans-serif; background-color: #ffffff; color: #4a4a4a; min-height: 100vh; display: flex; flex-direction: column; }
-    a { color: #3273dc; transition: color 0.2s; }
-    a:hover { color: #1a237e; }
+    a { color: #3273dc; transition: color 0.2s; text-decoration: none; }
+    a:hover { color: #1a237e; text-decoration: underline; }
 
     /* Typography */
     .publication-title { font-family: 'Google Sans', sans-serif; font-size: 2.2rem !important; }
     .subtitle.is-4 { font-size: 1.3rem !important; line-height: 1.5; margin-top: 0.5rem; }
     
-    .section-title { font-size: 1.5rem !important; margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; color: #363636; border-bottom: 2px solid #f5f5f5; padding-bottom: 0.5rem; }
-    .subsection-title { font-size: 1.2rem !important; margin-top: 1.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #4a4a4a; }
+    .section-title { font-size: 1.5rem !important; margin-top: 2.5rem; margin-bottom: 1.5rem; font-weight: 600; color: #363636; border-bottom: 2px solid #f5f5f5; padding-bottom: 0.5rem; }
+    .subsection-title { font-size: 1.2rem !important; margin-top: 1.8rem; margin-bottom: 0.8rem; font-weight: 600; color: #4a4a4a; }
+    .step-title { font-size: 1.1rem; font-weight: 600; color: #205cbe; margin-top: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; }
+    .step-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background-color: #205cbe; border-radius: 50%; margin-right: 8px; }
     
     .content { font-size: 1rem; }
     
     /* Code Block Styles */
     .code-container {
       position: relative;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
     
     pre { 
@@ -55,29 +57,91 @@
       transition: opacity 0.2s;
       border: 1px solid #dbdbdb;
       cursor: pointer;
+      z-index: 10;
     }
     
     .copy-btn:hover {
       opacity: 1;
     }
 
-    /* FAQ Box */
-    .faq-box {
+    /* FAQ Box (Details/Summary) */
+    details.faq-box {
       background-color: #fffbeb;
       border-left: 4px solid #ffdd57;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
       border-radius: 4px;
+      margin: 1.5rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
     }
-    .faq-title {
+    
+    summary.faq-header {
+      padding: 1rem 1.2rem;
       font-weight: bold;
       color: #947600;
+      cursor: pointer;
+      list-style: none; /* Hide default arrow */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+    }
+    
+    summary.faq-header::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.faq-header:hover {
+      background-color: rgba(255, 221, 87, 0.1);
+    }
+
+    .faq-content {
+      padding: 0 1.2rem 1.2rem 1.2rem;
+      border-top: 1px solid rgba(148, 118, 0, 0.1);
+      padding-top: 1rem;
+    }
+
+    .faq-toggle-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    details[open] .faq-toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Data List Styles */
+    .data-card {
+      background: #fff;
+      border: 1px solid #ededed;
+      border-radius: 6px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .data-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #363636;
       margin-bottom: 0.5rem;
-      display: block;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 0.3rem;
+    }
+    .data-links li {
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: flex-start;
+    }
+    .data-label {
+      font-weight: 600;
+      min-width: 100px;
+      color: #666;
+    }
+    .tag.is-warning.is-light {
+      background-color: #fff8de;
+      color: #8f7000;
     }
 
     /* Hero Section */
-    .hero { background-color: #f8f9fa; margin-bottom: 2rem; }
+    .hero { background-color: #f8f9fa; margin-bottom: 2rem; border-bottom: 1px solid #eaeaea; }
     
     /* Footer sticks to bottom */
     .section { flex: 1; }
@@ -95,7 +159,6 @@
           <p class="subtitle is-4">GDKVM：基于门控 Delta 规则时空键值记忆的超声心动图视频分割</p>
           
           <div style="margin-top: 1.5rem;">
-            <!-- Note: Link set to # for preview purposes -->
             <a href="#" class="button is-dark is-rounded">
               <span class="icon"><i class="fas fa-arrow-left"></i></span>
               <span>返回主页</span>
@@ -118,9 +181,15 @@
     <p>
       uv 是一个极速的 Python 包管理器和项目管理工具，由 Rust 编写。它旨在替代 pip、pip-tools 和 virtualenv，提供比传统工具快 10-100 倍的速度。
     </p>
+    <p class="is-size-7 has-text-grey" style="margin-top: -0.5rem;">
+      也可以使用 <a href="https://docs.conda.io/projects/conda/en/latest/" target="_blank" style="color: inherit; text-decoration: underline;">conda</a>
+    </p>
 
     <h3 class="subsection-title">1.2 安装 uv</h3>
-    <p>如果服务器无法直接连接外网或没有 root 权限，推荐直接使用 pip 安装：</p>
+    <p>
+      官方安装指南: <a href="https://docs.astral.sh/uv/getting-started/installation/" target="_blank">https://docs.astral.sh/uv/getting-started/installation/</a>
+      <br>如果服务器无法直接连接外网或没有 root 权限，推荐直接使用 pip 安装：
+    </p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
         <span class="icon"><i class="fas fa-copy"></i></span>
@@ -129,63 +198,135 @@
       <pre><code>pip install uv</code></pre>
     </div>
 
-    <h3 class="subsection-title">1.3 常见问题 (FAQ)</h3>
-    <div class="faq-box">
-      <span class="faq-title">Q: uv init 或 uv venv 报错：Failed to download python / invalid peer certificate</span>
-      <p><strong>问题描述：</strong><br>
-      某些服务器（特别是内网环境）在尝试下载特定版本的 Python 解释器时，可能会因为网络限制或 SSL 证书过期导致下载失败。<br>
-      错误日志示例：<code>error: Failed to download ... Caused by: invalid peer certificate: certificate expired...</code>
-      </p>
-      <p><strong>解决方案：</strong><br>
-      使用镜像源手动安装指定的 Python 版本（以 3.10.13 为例）：</p>
-      <div class="code-container" style="margin-bottom:0;">
-        <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
-          <span class="icon"><i class="fas fa-copy"></i></span>
-          <span>Copy</span>
-        </button>
-        <pre><code># 1. 查看可用的 Python 版本
-uv python list
-
-# 2. 使用镜像源安装指定版本 (解决证书/网络问题)
-uv python install 3.10.13 --mirror https://github-proxy.lixxing.top/https://github.com/astral-sh/python-build-standalone/releases/download
-
-# 3. 安装成功后，再次运行创建环境命令即可
-uv venv --python 3.10.13</code></pre>
-      </div>
-    </div>
-
-    <h3 class="subsection-title">1.4 项目初始化步骤</h3>
+    <h3 class="subsection-title">1.3 项目初始化步骤</h3>
     <p>配置好 uv 后，请按照以下步骤复现环境：</p>
+
+    <div class="step-title">第一步：初始化项目与环境</div>
+    <p>初始化项目并创建虚拟环境（指定 Python 版本）。<br>
+    <small style="color: #666;">注意：如果前一步已经手动 install 了 python（见下方 FAQ），这里会直接使用缓存。</small></p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
         <span class="icon"><i class="fas fa-copy"></i></span>
         <span>Copy</span>
       </button>
-      <pre><code># 1. 初始化项目 (指定 Python 版本)
-# 注意：如果前一步已经手动 install 了 python，这里会直接使用缓存
-uv init -p 3.12.4 gdkvm
-uv venv --python 3.12.4
+      <pre><code>uv init -p 3.12.4 gdkvm
+uv venv --python 3.12.4</code></pre>
+    </div>
 
-# 2. 进入项目目录
-cd data/username/Repo/gdkvm
+    <!-- FAQ Accordion -->
+    <details class="faq-box">
+      <summary class="faq-header">
+        <span><i class="fas fa-question-circle"></i> 常见问题 (FAQ)：uv init 或 uv venv 报错</span>
+        <span class="icon faq-toggle-icon"><i class="fas fa-chevron-down"></i></span>
+      </summary>
+      <div class="faq-content">
+        <p><strong>问题描述：</strong> 某些服务器（特别是内网环境）在尝试下载特定版本的 Python 解释器时，可能会因为网络限制或 SSL 证书过期导致下载失败（<code>Failed to download python</code> / <code>invalid peer certificate</code>）。</p>
+        <p><strong>解决方案：</strong> 使用镜像源手动安装指定的 Python 版本（以 3.10.13 为例）：</p>
+        <div class="code-container">
+          <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+            <span class="icon"><i class="fas fa-copy"></i></span>
+            <span>Copy</span>
+          </button>
+          <pre><code># 1. 查看可用的 Python 版本
+uv python list
 
-# 3. 激活虚拟环境
-source .venv/bin/activate
-which python
+# 2. 使用镜像源安装指定版本 (解决证书/网络问题)
+uv python install 3.10.13 --mirror https://github-proxy.lixxing.top/https://github.com/astral-sh/python-build-standalone/releases/download</code></pre>
+        </div>
+        <p>安装成功后，再次运行上面的 <code>uv venv</code> 命令即可。</p>
+      </div>
+    </details>
 
-# 4. 克隆代码仓库
-git clone https://github.com/wangrui2025/GDKVM.git
+    <div class="step-title">第二步：进入项目目录</div>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>cd data/username/Repo/gdkvm</code></pre>
+    </div>
 
-# 5. 同步依赖
-uv sync
+    <div class="step-title">第三步：激活虚拟环境</div>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>source .venv/bin/activate
+which python</code></pre>
+    </div>
+
+    <div class="step-title">第四步：克隆代码仓库</div>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>git clone https://github.com/wangrui2025/GDKVM.git</code></pre>
+    </div>
+
+    <div class="step-title">第五步：同步依赖</div>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>uv sync
 uv pip check</code></pre>
     </div>
 
     <!-- 2. 数据准备 -->
     <h2 class="section-title">2. 数据准备</h2>
-    <p>
-      我们使用 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集。请从官方网站下载并按如下方式组织数据：
-    </p>
+    <p>我们主要使用 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集。</p>
+
+    <h3 class="subsection-title">2.1 数据集下载</h3>
+    
+    <div class="data-card">
+      <div class="data-name">已处理的数据</div>
+      <ul class="data-links">
+        <li><span class="data-label">CAMUS:</span> <code>camus_png256x256_10f_20250709</code></li>
+        <li><span class="data-label">EchoNet:</span> <code>EchoNet-Dynamic</code></li>
+      </ul>
+    </div>
+
+    <div class="data-card">
+      <div class="data-name">CAMUS (原始数据)</div>
+      <ul class="data-links">
+        <li>
+          <span class="data-label">官方:</span> 
+          <a href="https://www.creatis.insa-lyon.fr/Challenge/camus/" target="_blank">CAMUS Challenge (Project Page) <i class="fas fa-external-link-alt is-size-7"></i></a>
+        </li>
+        <li>
+          <span class="data-label">Huggingface:</span> 
+          <a href="https://huggingface.co/datasets?search=CAMUS" target="_blank">CAMUS_public <i class="fas fa-external-link-alt is-size-7"></i></a>
+        </li>
+        <li>
+          <span class="data-label">Kaggle:</span> 
+          <span class="tag is-warning is-light">不推荐</span> camus-public-20250702
+        </li>
+      </ul>
+    </div>
+
+    <div class="data-card">
+      <div class="data-name">EchoNet-Dynamic (原始数据)</div>
+      <ul class="data-links">
+        <li>
+          <span class="data-label">官方下载:</span> 
+          <a href="https://aimi.stanford.edu/datasets/echonet-dynamic-cardiac-ultrasound" target="_blank">Stanford AIMI <i class="fas fa-external-link-alt is-size-7"></i></a>
+        </li>
+        <li>
+          <span class="data-label">Huggingface:</span> 
+          <span style="color: #999;">-</span>
+        </li>
+        <li>
+          <span class="data-label">Kaggle:</span> 
+          <span class="tag is-warning is-light">不推荐</span>
+        </li>
+      </ul>
+    </div>
+
+    <h3 class="subsection-title">2.2 数据组织结构</h3>
+    <p>请下载数据集并按如下方式组织目录结构：</p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
         <span class="icon"><i class="fas fa-copy"></i></span>
@@ -193,12 +334,7 @@ uv pip check</code></pre>
       </button>
       <pre><code>./dataset
 ├── CAMUS
-│   ├── training
-│   └── testing
-└── EchoNet-Dynamic
-    ├── FileList.csv
-    ├── VolumeTracings.csv
-    └── Videos</code></pre>
+└── EchoNet-Dynamic</code></pre>
     </div>
 
     <!-- 3. 模型训练 -->
@@ -234,9 +370,7 @@ uv pip check</code></pre>
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <p>
-        Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
-      </p>
+      <!-- Footer content cleared as requested -->
     </div>
   </div>
 </footer>
