@@ -113,32 +113,66 @@
       background: #fff;
       border: 1px solid #ededed;
       border-radius: 6px;
-      padding: 1.2rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
     .data-name {
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      color: #205cbe;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .data-name i { margin-right: 0.5rem; }
+    
+    .data-subsection {
+      margin-bottom: 1.2rem;
+    }
+    .data-subsection:last-child { margin-bottom: 0; }
+    
+    .data-sub-title {
+      font-weight: 600;
       color: #363636;
+      font-size: 1rem;
       margin-bottom: 0.5rem;
-      border-bottom: 1px solid #f0f0f0;
-      padding-bottom: 0.3rem;
+      display: block;
+    }
+
+    .data-links {
+      list-style: none !important;
+      margin-left: 0 !important;
     }
     .data-links li {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
     }
     .data-label {
-      font-weight: 600;
-      min-width: 100px;
+      font-weight: 500;
+      min-width: 80px;
       color: #666;
+      margin-right: 0.5rem;
     }
-    .tag.is-warning.is-light {
-      background-color: #fff8de;
-      color: #8f7000;
+    .link-tag {
+      background-color: #f5f5f5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #3273dc;
+      display: inline-flex;
+      align-items: center;
+      transition: background-color 0.2s;
     }
+    .link-tag:hover {
+      background-color: #e8f0fe;
+      text-decoration: none;
+    }
+    .link-tag i { margin-left: 0.4rem; font-size: 0.8em; }
 
     /* Hero Section */
     .hero { background-color: #f8f9fa; margin-bottom: 2rem; border-bottom: 1px solid #eaeaea; }
@@ -159,7 +193,7 @@
           <p class="subtitle is-4">GDKVM：基于门控 Delta 规则时空键值记忆的超声心动图视频分割</p>
           
           <div style="margin-top: 1.5rem;">
-            <a href="#" class="button is-dark is-rounded">
+            <a href="https://mykcs.github.io/gdkvm-project-20251210/" class="button is-dark is-rounded">
               <span class="icon"><i class="fas fa-arrow-left"></i></span>
               <span>返回主页</span>
             </a>
@@ -282,47 +316,55 @@ uv pip check</code></pre>
     <h3 class="subsection-title">2.1 数据集下载</h3>
     
     <div class="data-card">
-      <div class="data-name">已处理的数据</div>
-      <ul class="data-links">
-        <li><span class="data-label">CAMUS:</span> <code>camus_png256x256_10f_20250709</code></li>
-        <li><span class="data-label">EchoNet:</span> <code>EchoNet-Dynamic</code></li>
-      </ul>
-    </div>
-
-    <div class="data-card">
-      <div class="data-name">CAMUS (原始数据)</div>
+      <div class="data-name"><i class="fas fa-database"></i> 已处理数据集 (Processed)</div>
       <ul class="data-links">
         <li>
-          <span class="data-label">官方:</span> 
-          <a href="https://www.creatis.insa-lyon.fr/Challenge/camus/" target="_blank">CAMUS Challenge (Project Page) <i class="fas fa-external-link-alt is-size-7"></i></a>
+          <span class="data-label">CAMUS:</span> 
+          <a href="https://huggingface.co/datasets/miyuki17/camus_png256x256_10f_20250709" target="_blank" class="link-tag">
+            HuggingFace (camus_png256x256_10f...) <i class="fas fa-external-link-alt"></i>
+          </a>
         </li>
         <li>
-          <span class="data-label">Huggingface:</span> 
-          <a href="https://huggingface.co/datasets?search=CAMUS" target="_blank">CAMUS_public <i class="fas fa-external-link-alt is-size-7"></i></a>
-        </li>
-        <li>
-          <span class="data-label">Kaggle:</span> 
-          <span class="tag is-warning is-light">不推荐</span> camus-public-20250702
+          <span class="data-label">EchoNet:</span> 
+          <a href="https://huggingface.co/datasets/miyuki17/EchoNet-Dynamic" target="_blank" class="link-tag">
+            HuggingFace (EchoNet-Dynamic) <i class="fas fa-external-link-alt"></i>
+          </a>
         </li>
       </ul>
     </div>
 
     <div class="data-card">
-      <div class="data-name">EchoNet-Dynamic (原始数据)</div>
-      <ul class="data-links">
-        <li>
-          <span class="data-label">官方下载:</span> 
-          <a href="https://aimi.stanford.edu/datasets/echonet-dynamic-cardiac-ultrasound" target="_blank">Stanford AIMI <i class="fas fa-external-link-alt is-size-7"></i></a>
-        </li>
-        <li>
-          <span class="data-label">Huggingface:</span> 
-          <span style="color: #999;">-</span>
-        </li>
-        <li>
-          <span class="data-label">Kaggle:</span> 
-          <span class="tag is-warning is-light">不推荐</span>
-        </li>
-      </ul>
+      <div class="data-name"><i class="fas fa-archive"></i> 原始数据集 (Raw)</div>
+      
+      <div class="data-subsection">
+        <span class="data-sub-title">CAMUS</span>
+        <ul class="data-links">
+          <li>
+            <span class="data-label">官方网站:</span> 
+            <a href="https://www.creatis.insa-lyon.fr/Challenge/camus/" target="_blank" class="link-tag">
+              CAMUS Challenge <i class="fas fa-external-link-alt"></i>
+            </a>
+          </li>
+          <li>
+            <span class="data-label">HuggingFace:</span> 
+            <a href="https://huggingface.co/datasets/miyuki17/CAMUS_public" target="_blank" class="link-tag">
+              CAMUS_public <i class="fas fa-external-link-alt"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="data-subsection">
+        <span class="data-sub-title">EchoNet-Dynamic</span>
+        <ul class="data-links">
+          <li>
+            <span class="data-label">官方网站:</span> 
+            <a href="https://echonet.github.io/dynamic/" target="_blank" class="link-tag">
+              EchoNet Dynamic Project <i class="fas fa-external-link-alt"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <h3 class="subsection-title">2.2 数据组织结构</h3>
