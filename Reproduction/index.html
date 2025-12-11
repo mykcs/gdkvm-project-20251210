@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reproduction Guide - GDKVM</title>
+  <title>复现指南 - GDKVM</title>
   
   <!-- External Stylesheets (CDNs) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -14,14 +14,17 @@
   <style>
     /* Global Settings */
     html { font-size: 14px; }
-    body { font-family: 'Noto Sans', sans-serif; background-color: #ffffff; color: #4a4a4a; min-height: 100vh; display: flex; flex-direction: column; }
+    body { font-family: 'Noto Sans', 'Noto Sans SC', sans-serif; background-color: #ffffff; color: #4a4a4a; min-height: 100vh; display: flex; flex-direction: column; }
     a { color: #3273dc; transition: color 0.2s; }
     a:hover { color: #1a237e; }
 
     /* Typography */
     .publication-title { font-family: 'Google Sans', sans-serif; font-size: 2.2rem !important; }
-    .title.is-3 { font-size: 1.5rem !important; }
-    .title.is-4 { font-size: 1.3rem !important; margin-top: 1.5rem; }
+    .subtitle.is-4 { font-size: 1.3rem !important; line-height: 1.5; margin-top: 0.5rem; }
+    
+    .section-title { font-size: 1.5rem !important; margin-top: 2rem; margin-bottom: 1rem; font-weight: 600; color: #363636; border-bottom: 2px solid #f5f5f5; padding-bottom: 0.5rem; }
+    .subsection-title { font-size: 1.2rem !important; margin-top: 1.5rem; margin-bottom: 0.8rem; font-weight: 600; color: #4a4a4a; }
+    
     .content { font-size: 1rem; }
     
     /* Code Block Styles */
@@ -58,6 +61,21 @@
       opacity: 1;
     }
 
+    /* FAQ Box */
+    .faq-box {
+      background-color: #fffbeb;
+      border-left: 4px solid #ffdd57;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      border-radius: 4px;
+    }
+    .faq-title {
+      font-weight: bold;
+      color: #947600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
     /* Hero Section */
     .hero { background-color: #f8f9fa; margin-bottom: 2rem; }
     
@@ -73,14 +91,14 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Reproduction Guide</h1>
-          <p class="subtitle is-4">GDKVM: Echocardiography Video Segmentation</p>
+          <h1 class="title is-1 publication-title">复现指南</h1>
+          <p class="subtitle is-4">GDKVM：基于门控 Delta 规则时空键值记忆的超声心动图视频分割</p>
           
           <div style="margin-top: 1.5rem;">
             <!-- Note: Link set to # for preview purposes -->
             <a href="#" class="button is-dark is-rounded">
               <span class="icon"><i class="fas fa-arrow-left"></i></span>
-              <span>Back to Main Page</span>
+              <span>返回主页</span>
             </a>
           </div>
         </div>
@@ -93,47 +111,87 @@
 <section class="section">
   <div class="container is-max-desktop content">
     
-    <h4 class="title is-4">1. Environment Setup</h4>
+    <!-- 1. 环境配置 -->
+    <h2 class="section-title">1. 环境配置</h2>
+
+    <h3 class="subsection-title">1.1 关于 uv</h3>
     <p>
-      The code is implemented using PyTorch. 为了获得最佳的复现体验，我们推荐使用 <strong>uv</strong> (一个极速 Python 包管理器) 来配置开发环境。
+      uv 是一个极速的 Python 包管理器和项目管理工具，由 Rust 编写。它旨在替代 pip、pip-tools 和 virtualenv，提供比传统工具快 10-100 倍的速度。
     </p>
 
+    <h3 class="subsection-title">1.2 安装 uv</h3>
+    <p>如果服务器无法直接连接外网或没有 root 权限，推荐直接使用 pip 安装：</p>
+    <div class="code-container">
+      <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+        <span class="icon"><i class="fas fa-copy"></i></span>
+        <span>Copy</span>
+      </button>
+      <pre><code>pip install uv</code></pre>
+    </div>
+
+    <h3 class="subsection-title">1.3 常见问题 (FAQ)</h3>
+    <div class="faq-box">
+      <span class="faq-title">Q: uv init 或 uv venv 报错：Failed to download python / invalid peer certificate</span>
+      <p><strong>问题描述：</strong><br>
+      某些服务器（特别是内网环境）在尝试下载特定版本的 Python 解释器时，可能会因为网络限制或 SSL 证书过期导致下载失败。<br>
+      错误日志示例：<code>error: Failed to download ... Caused by: invalid peer certificate: certificate expired...</code>
+      </p>
+      <p><strong>解决方案：</strong><br>
+      使用镜像源手动安装指定的 Python 版本（以 3.10.13 为例）：</p>
+      <div class="code-container" style="margin-bottom:0;">
+        <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
+          <span class="icon"><i class="fas fa-copy"></i></span>
+          <span>Copy</span>
+        </button>
+        <pre><code># 1. 查看可用的 Python 版本
+uv python list
+
+# 2. 使用镜像源安装指定版本 (解决证书/网络问题)
+uv python install 3.10.13 --mirror https://github-proxy.lixxing.top/https://github.com/astral-sh/python-build-standalone/releases/download
+
+# 3. 安装成功后，再次运行创建环境命令即可
+uv venv --python 3.10.13</code></pre>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">1.4 项目初始化步骤</h3>
+    <p>配置好 uv 后，请按照以下步骤复现环境：</p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
         <span class="icon"><i class="fas fa-copy"></i></span>
         <span>Copy</span>
       </button>
       <pre><code># 1. 初始化项目 (指定 Python 版本)
-uv init -p 3.12.4 gdkvm-20251018
-
-# 2. 创建虚拟环境
+# 注意：如果前一步已经手动 install 了 python，这里会直接使用缓存
+uv init -p 3.12.4 gdkvm
 uv venv --python 3.12.4
 
-# 3. 进入工作目录
-cd data/username/Repo/gdkvm-20251014
+# 2. 进入项目目录
+cd data/username/Repo/gdkvm
 
-# 4. 激活虚拟环境
+# 3. 激活虚拟环境
 source .venv/bin/activate
 which python
 
-# 5. 克隆代码仓库
-git clone https://github.com/wangrui2025/GDKVM.git /data/username/Repo/gdkvm-20251018
+# 4. 克隆代码仓库
+git clone https://github.com/wangrui2025/GDKVM.git
 
-# 6. 同步依赖并检查
+# 5. 同步依赖
 uv sync
 uv pip check</code></pre>
     </div>
 
-    <h4 class="title is-4">2. Data Preparation</h4>
+    <!-- 2. 数据准备 -->
+    <h2 class="section-title">2. 数据准备</h2>
     <p>
-      We use <strong>CAMUS</strong> and <strong>EchoNet-Dynamic</strong> datasets. Please download them from their official websites and organize the data as follows:
+      我们使用 <strong>CAMUS</strong> 和 <strong>EchoNet-Dynamic</strong> 数据集。请从官方网站下载并按如下方式组织数据：
     </p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
         <span class="icon"><i class="fas fa-copy"></i></span>
         <span>Copy</span>
       </button>
-      <pre><code>./data
+      <pre><code>./dataset
 ├── CAMUS
 │   ├── training
 │   └── testing
@@ -143,9 +201,10 @@ uv pip check</code></pre>
     └── Videos</code></pre>
     </div>
 
-    <h4 class="title is-4">3. Training</h4>
+    <!-- 3. 模型训练 -->
+    <h2 class="section-title">3. 模型训练</h2>
     <p>
-      To train the GDKVM model on the CAMUS dataset, run the following command. The checkpoints will be saved in the <code>./checkpoints</code> directory.
+      要在 CAMUS 数据集上训练 GDKVM 模型，请运行以下命令。检查点（Checkpoints）将保存在 <code>./checkpoints</code> 目录下。
     </p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
@@ -155,9 +214,10 @@ uv pip check</code></pre>
       <pre><code>python train.py --dataset camus --batch_size 8 --epochs 100 --lr 1e-4 --save_dir ./checkpoints/camus_gdkvm</code></pre>
     </div>
 
-    <h4 class="title is-4">4. Inference & Evaluation</h4>
+    <!-- 4. 推理与评估 -->
+    <h2 class="section-title">4. 推理与评估</h2>
     <p>
-      To evaluate the pre-trained model, run:
+      要评估预训练模型，请运行：
     </p>
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
@@ -166,6 +226,7 @@ uv pip check</code></pre>
       </button>
       <pre><code>python test.py --dataset camus --resume ./checkpoints/camus_gdkvm/best_model.pth --eval_metrics DSC HD95</code></pre>
     </div>
+
   </div>
 </section>
 
@@ -204,7 +265,7 @@ uv pip check</code></pre>
       const originalText = textSpan.innerText;
       
       icon.className = 'fas fa-check';
-      textSpan.innerText = 'Copied!';
+      textSpan.innerText = '已复制!';
       btn.classList.remove('is-light');
       btn.classList.add('is-success');
 
