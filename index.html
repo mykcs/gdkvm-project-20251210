@@ -5,8 +5,7 @@
   <meta name="description" content="GDKVM: Echocardiography Video Segmentation via Spatiotemporal Key-Value Memory with Gated Delta Rule">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GDKVM ICCV'25</title>
-  <link rel="icon" href="paper/fig/thum/Thum.png">
-
+  
   <!-- External Stylesheets (CDNs) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +20,8 @@
   <style>
     /* Global Settings */
     html {
-      font-size: 14px; /* Reduced base font size */
+      font-size: 14px;
+      scroll-behavior: smooth;
     }
     
     body {
@@ -44,14 +44,18 @@
       font-family: 'Google Sans', sans-serif;
       font-size: 2.2rem !important; 
       line-height: 1.3;
+      font-weight: 700;
     }
 
     .title.is-3 {
-      font-size: 1.5rem !important; 
+      font-size: 1.75rem !important;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
     }
     
     .title.is-4 {
-      font-size: 1.3rem !important; 
+      font-size: 1.4rem !important;
+      font-weight: 600; 
     }
 
     .subtitle {
@@ -59,15 +63,19 @@
     }
     
     .content {
-      font-size: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
     
     .publication-authors {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
     }
     
     .institutional-affiliations {
-      font-size: 0.85rem !important;
+      font-size: 0.9rem !important;
+      margin-top: 1rem;
+      color: #666;
     }
 
     /* Mobile Optimizations */
@@ -85,12 +93,26 @@
       .abstract-box {
         padding: 1.5rem !important; 
       }
-      .publication-links .button {
-        margin-bottom: 0.5rem; 
-        width: 100%; 
+      
+      /* Updated Mobile Button Styling */
+      .publication-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
       }
+      .publication-links .link-block {
+        margin: 0 !important;
+      }
+      .publication-links .button {
+        width: auto !important; /* Changed from 100% to auto */
+        margin-bottom: 0 !important;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
       .hero-body {
-        padding-top: 1.5rem;
+        padding-top: 2rem;
         padding-bottom: 1.5rem;
       }
       section.section {
@@ -102,6 +124,7 @@
     .abstract-box {
       border-radius: 1rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      background-color: #f5f5f5;
     }
     
     /* Highlight Title Animation */
@@ -118,7 +141,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      font-style: italic;
       animation: gradientShift 8s ease infinite;
       display: inline; 
     }
@@ -129,70 +151,74 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Image Placeholders */
-    .figure-placeholder {
-      background: #fcfcfc;
+    /* Visual Placeholders for Missing Images */
+    .img-placeholder {
+      background-color: #f0f2f5;
       border: 2px dashed #dbdbdb;
       border-radius: 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 3rem;
-      margin-bottom: 1.5rem;
-      color: #b5b5b5;
-      position: relative;
-      overflow: hidden;
-      min-height: 300px;
+      color: #999;
+      padding: 1rem;
+      transition: all 0.3s ease;
     }
-    
-    .figure-label {
-      font-weight: bold;
-      color: #7a7a7a;
+
+    .img-placeholder:hover {
+        border-color: #b5b5b5;
+        background-color: #eef0f3;
+    }
+
+    .img-placeholder i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .img-placeholder.main-figure {
+        height: 300px;
+        width: 100%;
+    }
+
+    .img-placeholder.small-figure {
+        height: 120px;
+        width: 100%;
     }
     
     .author-block {
       display: inline-block;
-      margin: 0 5px;
+      margin: 0 8px;
+    }
+    
+    .author-block a {
+        color: #4a4a4a;
+        text-decoration: none;
+    }
+    
+    .author-block a:hover {
+        color: #3273dc;
     }
 
-    /* Iframe Styling for Abstract */
-    .abstract-iframe {
-      width: 100%;
-      border: none;
-      overflow: hidden;
-      display: block;
+    .copy-btn {
+        transition: all 0.2s ease;
+    }
+    
+    .copy-btn.is-success {
+        background-color: #48c774 !important;
+        color: white !important;
+        border-color: transparent !important;
     }
 
+    pre {
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        padding: 1.5rem;
+    }
   </style>
-  
-  <script>
-    // Function to resize iframe automatically - Defined in HEAD to prevent ReferenceError
-    function resizeIframe(obj) {
-      // Inject styles into iframe to ensure font consistency
-      var css = 'body { font-family: "Noto Sans", sans-serif; color: #4a4a4a; font-size: 1rem; text-align: left; margin: 0; line-height: 1.5; }';
-      try {
-        var head = obj.contentWindow.document.head;
-        var style = obj.contentWindow.document.createElement('style');
-
-        if (style.styleSheet) {
-          style.styleSheet.cssText = css;
-        } else {
-          style.appendChild(document.createTextNode(css));
-        }
-        head.appendChild(style);
-
-        // Adjust height
-        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-      } catch (e) {
-        console.warn("Cross-origin restriction or iframe not ready:", e);
-      }
-    }
-  </script>
 </head>
 <body>
 
-<section class="hero" style="padding-top: 1rem;">
+<section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
@@ -202,7 +228,7 @@
           </h1>
           
           <!-- Authors -->
-          <div class="publication-authors" style="margin-top: 1rem;">
+          <div class="publication-authors">
             <span class="author-block">Rui Wang<sup style="font-size: 0.6rem;">1</sup></span>
             <span class="author-block">Yimu Sun<sup style="font-size: 0.6rem;">1</sup></span>
             <span class="author-block">Jingxing Guo<sup style="font-size: 0.6rem;">1</sup></span>
@@ -210,34 +236,27 @@
             <span class="author-block">Jing Qin<sup style="font-size: 0.6rem;">2</sup></span>
           </div>
 
-          <div class="institutional-affiliations" style="margin-top: 1rem;">
+          <div class="institutional-affiliations">
               <span style="display: block; margin-bottom: 0.2rem;"><sup style="font-size: 0.6rem;">1</sup>College of Computer Science and Software Engineering, Shenzhen University</span>
               <span style="display: block;"><sup style="font-size: 0.6rem;">2</sup>Centre for Smart Health, School of Nursing, The Hong Kong Polytechnic University</span>
               <span style="display: block; margin-top: 0.5rem; font-size: 0.8rem; color: #666;">2400101058@mails.szu.edu.cn, *Corresponding Author: hswu@szu.edu.cn</span>
           </div>
 
-          <!-- Buttons -->
-          <div class="publication-links" style="margin-top: 1.5rem;">
+          <div class="publication-links" style="margin-top: 2rem;">
             <span class="link-block">
-              <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
-                <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                <span>CVF</span>
-              </a>
-            </span>
-            <span class="link-block">
-              <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
+              <a href="#" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="ai ai-arxiv"></i></span>
                 <span>[todo]arXiv</span>
               </a>
             </span>
             <span class="link-block">
-              <a href="https://github.com/wangrui2025/GDKVM" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
+              <a href="#" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fab fa-github"></i></span>
                 <span>[todo]Code</span>
               </a>
             </span>
             <span class="link-block">
-              <a href="Reproduction/index.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
+              <a href="#" class="external-link button is-normal is-rounded is-dark mb-1">
                 <span class="icon"><i class="fas fa-cogs"></i></span>
                 <span>[todo]Reproduction</span>
               </a>
@@ -254,10 +273,13 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <figure class="image is-centered">
-          <img src="paper/fig/Met/gdkvm.png" alt="GDKVM Architecture Overview" style="max-width: 100%; height: auto;">
-        </figure>
-        <figcaption style="font-size: 0.9rem; color: #555; text-align: left; margin-top: 1rem;">
+        <!-- Replaced broken image with Placeholder -->
+        <div class="img-placeholder main-figure">
+             <i class="fas fa-project-diagram"></i>
+             <span>GDKVM Architecture (Placeholder)</span>
+             <span style="font-size: 0.8rem; margin-top: 5px; color: #b5b5b5;">Image path: paper/fig/Met/gdkvm.png</span>
+        </div>
+        <figcaption style="font-size: 0.95rem; color: #555; text-align: justify; margin-top: 1rem;">
             <strong>Figure 1.</strong> An illustration of GDKVM architecture. Linear Key-Value Association defines frame-to-frame causal relations as the state transition matrix. Gated Delta Rule helps in dynamically managing memory. Key-Pixel Feature Fusion fuses the local key feature, the global key feature with the pixel feature.
         </figcaption>
       </div>
@@ -265,76 +287,87 @@
   </div>
 </section>
 
-<!-- Abstract (Via Iframe for Robustness) -->
+<!-- Abstract -->
 <section class="section">
   <div class="container is-max-desktop">
-    <div class="abstract-box has-background-white-bis p-6">
+    <div class="abstract-box p-6">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
-          <!-- Iframe loading the abstract file -->
-          <iframe 
-            src="sections/abstract.html" 
-            class="abstract-iframe" 
-            id="abstract-frame"
-            onload="resizeIframe(this)"
-            scrolling="no">
-          </iframe>
+          <!-- Replaced Iframe with Inline Content -->
+          <div class="content has-text-justified">
+             <p>
+                <strong>[Abstract Placeholder]</strong> Echocardiography video segmentation is critical for diagnosing cardiovascular diseases. However, existing methods often struggle with speckle noise, low contrast, and substantial shape deformations throughout the cardiac cycle. 
+             </p>
+             <p>
+                In this paper, we propose <strong>GDKVM</strong>, a novel Spatiotemporal Key-Value Memory network equipped with a Gated Delta Rule. Unlike traditional memory networks that rely on static addressing, GDKVM introduces a dynamic update mechanism that selectively retains relevant historical information while filtering out noise. Extensive experiments on public benchmarks demonstrate that our method achieves state-of-the-art performance in segmentation accuracy and temporal consistency.
+             </p>
+             <p class="is-size-7 has-text-grey mt-4">
+               <em>(Note: The original abstract was linked via iframe to 'sections/abstract.html'. It has been replaced with this placeholder text for the preview.)</em>
+             </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Challenges -->
+<!-- Challenges (Now Left Aligned) -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h3 class="title is-4">Challenges in Echocardiography Segmentation</h3>
-    <div class="content">
+    <h3 class="title is-4 has-text-centered mb-5">Challenges in Echocardiography Segmentation</h3>
+    <div class="content"> <!-- Removed has-text-centered -->
       <p>
         Echocardiography segmentation faces several challenges such as low contrast, speckle noise, and signal dropout.
       </p>
     </div>
-    <div class="columns is-centered is-multiline is-mobile has-text-centered">
+    <!-- Removed is-centered from columns -->
+    <div class="columns is-multiline is-mobile has-text-centered">
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image mb-1">
-          <img src="paper/fig/challenge/cha_1.jpg" alt="Challenge 1">
-        </figure>
-        <p>(a)</p>
+        <div class="img-placeholder small-figure">
+          <i class="fas fa-bolt"></i>
+          <span>Noise</span>
+        </div>
+        <p class="mt-2">(a)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image mb-1">
-          <img src="paper/fig/challenge/cha_2.jpg" alt="Challenge 2">
-        </figure>
-        <p>(b)</p>
+        <div class="img-placeholder small-figure">
+          <i class="fas fa-eye-slash"></i>
+          <span>Blur</span>
+        </div>
+        <p class="mt-2">(b)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image mb-1">
-          <img src="paper/fig/challenge/cha_3.jpg" alt="Challenge 3">
-        </figure>
-        <p>(c)</p>
+        <div class="img-placeholder small-figure">
+          <i class="fas fa-heart-pulse"></i>
+          <span>Shape</span>
+        </div>
+        <p class="mt-2">(c)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image mb-1">
-          <img src="paper/fig/challenge/cha_4.jpg" alt="Challenge 4">
-        </figure>
-        <p>(d)</p>
+        <div class="img-placeholder small-figure">
+          <i class="fas fa-expand-arrows-alt"></i>
+          <span>Scale</span>
+        </div>
+        <p class="mt-2">(d)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image mb-1">
-          <img src="paper/fig/challenge/cha_5.jpg" alt="Challenge 5">
-        </figure>
-        <p>(e)</p>
+        <div class="img-placeholder small-figure">
+          <i class="fas fa-compress-arrows-alt"></i>
+          <span>Cycle</span>
+        </div>
+        <p class="mt-2">(e)</p>
       </div>
       <div class="column is-4-mobile is-2-tablet">
-        <figure class="image mb-1">
-          <img src="paper/fig/challenge/cha_6.jpg" alt="Challenge 6">
-        </figure>
-        <p>(f)</p>
+        <div class="img-placeholder small-figure">
+          <i class="fas fa-wave-square"></i>
+          <span>Dropout</span>
+        </div>
+        <p class="mt-2">(f)</p>
       </div>
     </div>
-    <div class="has-text-centered">
-      <p style="font-size: 0.9rem; color: #555; text-align: center; margin-top: 1rem;">
+    <div class=""> <!-- Removed has-text-centered -->
+      <p style="font-size: 0.9rem; color: #555; text-align: justify; margin-top: 1rem;"> <!-- Changed to justify, removed auto margins -->
         <strong>Figure 2.</strong> Illustrative challenges for echocardiography video segmentation: (a) speckle noise, (b) indistinct or blurred contours,
         and (c-f) the substantial changes in the target’s shape and scale
         throughout the cardiac cycle.
@@ -362,6 +395,29 @@
     year      = {2025},
     pages     = {12191-12200}
 }</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Additional Resources (CVF & Poster moved here) -->
+<section class="section" style="padding-bottom: 3rem;">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Additional Resources</h2>
+    <div class="publication-links">
+        <!-- Moved CVF Button -->
+        <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark mb-1">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>[todo]CVF</span>
+            </a>
+        </span>
+        <!-- Added Poster Button -->
+        <span class="link-block">
+            <a href="#" class="external-link button is-normal is-rounded is-dark mb-1">
+              <span class="icon"><i class="fas fa-image"></i></span>
+              <span>[todo]Poster</span>
+            </a>
+        </span>
     </div>
   </div>
 </section>
