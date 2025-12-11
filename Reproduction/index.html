@@ -4,9 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reproduction Guide - GDKVM</title>
-  <!-- Updated path: go up one level to access paper folder -->
-  <link rel="icon" href="../paper/fig/thum/Thum.png">
-
+  
   <!-- External Stylesheets (CDNs) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,7 +14,7 @@
   <style>
     /* Global Settings */
     html { font-size: 14px; }
-    body { font-family: 'Noto Sans', sans-serif; background-color: #ffffff; color: #4a4a4a; }
+    body { font-family: 'Noto Sans', sans-serif; background-color: #ffffff; color: #4a4a4a; min-height: 100vh; display: flex; flex-direction: column; }
     a { color: #3273dc; transition: color 0.2s; }
     a:hover { color: #1a237e; }
 
@@ -52,6 +50,8 @@
       right: 0.5rem;
       opacity: 0.7;
       transition: opacity 0.2s;
+      border: 1px solid #dbdbdb;
+      cursor: pointer;
     }
     
     .copy-btn:hover {
@@ -60,6 +60,9 @@
 
     /* Hero Section */
     .hero { background-color: #f8f9fa; margin-bottom: 2rem; }
+    
+    /* Footer sticks to bottom */
+    .section { flex: 1; }
   </style>
 </head>
 <body>
@@ -74,8 +77,8 @@
           <p class="subtitle is-4">GDKVM: Echocardiography Video Segmentation</p>
           
           <div style="margin-top: 1.5rem;">
-            <!-- Updated path: go up one level to access index.html -->
-            <a href="../index.html" class="button is-dark is-rounded">
+            <!-- Note: Link set to # for preview purposes -->
+            <a href="#" class="button is-dark is-rounded">
               <span class="icon"><i class="fas fa-arrow-left"></i></span>
               <span>Back to Main Page</span>
             </a>
@@ -92,17 +95,33 @@
     
     <h4 class="title is-4">1. Environment Setup</h4>
     <p>
-      The code is implemented using PyTorch. We recommend using Anaconda to manage the environment.
+      The code is implemented using PyTorch. 为了获得最佳的复现体验，我们推荐使用 <strong>uv</strong> (一个极速 Python 包管理器) 来配置开发环境。
     </p>
+
     <div class="code-container">
       <button class="button is-small is-light copy-btn" onclick="copyCode(this)">
         <span class="icon"><i class="fas fa-copy"></i></span>
         <span>Copy</span>
       </button>
-      <pre><code>conda create -n gdkvm python=3.8
-conda activate gdkvm
-pip install torch==1.13.0 torchvision==0.14.0 --extra-index-url https://download.pytorch.org/whl/cu116
-pip install -r requirements.txt</code></pre>
+      <pre><code># 1. 初始化项目 (指定 Python 版本)
+uv init -p 3.12.4 gdkvm-20251018
+
+# 2. 创建虚拟环境
+uv venv --python 3.12.4
+
+# 3. 进入工作目录
+cd data/username/Repo/gdkvm-20251014
+
+# 4. 激活虚拟环境
+source .venv/bin/activate
+which python
+
+# 5. 克隆代码仓库
+git clone https://github.com/wangrui2025/GDKVM.git /data/username/Repo/gdkvm-20251018
+
+# 6. 同步依赖并检查
+uv sync
+uv pip check</code></pre>
     </div>
 
     <h4 class="title is-4">2. Data Preparation</h4>
@@ -181,6 +200,9 @@ pip install -r requirements.txt</code></pre>
       const icon = btn.querySelector('.icon i');
       const textSpan = btn.querySelector('span:last-child');
       
+      // Store original text
+      const originalText = textSpan.innerText;
+      
       icon.className = 'fas fa-check';
       textSpan.innerText = 'Copied!';
       btn.classList.remove('is-light');
@@ -189,13 +211,15 @@ pip install -r requirements.txt</code></pre>
       // Reset after 2 seconds
       setTimeout(() => {
         icon.className = 'fas fa-copy';
-        textSpan.innerText = 'Copy';
+        textSpan.innerText = originalText;
         btn.classList.remove('is-success');
         btn.classList.add('is-light');
       }, 2000);
       
     } catch (err) {
       console.error('Failed to copy', err);
+      // Fallback message if copy fails
+      alert('Copy failed. Please select the text manually.');
     }
     
     document.body.removeChild(textarea);
