@@ -154,7 +154,7 @@
     }
     .data-label {
       font-weight: 500;
-      min-width: 80px;
+      min-width: 140px; /* Increased width to accommodate longer labels */
       color: #666;
       margin-right: 0.5rem;
     }
@@ -233,8 +233,7 @@
     </div>
 
     <h3 class="subsection-title">1.3 项目初始化步骤</h3>
-    <p>配置好 uv 后，请按照以下步骤复现环境：</p>
-
+    
     <div class="step-title">第一步：初始化项目与环境</div>
     <p>初始化项目并创建虚拟环境（指定 Python 版本）。<br>
     <small style="color: #666;">注意：如果前一步已经手动 install 了 python（见下方 FAQ），这里会直接使用缓存。</small></p>
@@ -316,25 +315,25 @@ uv pip check</code></pre>
     <h3 class="subsection-title">2.1 数据集下载</h3>
     
     <div class="data-card">
-      <div class="data-name"><i class="fas fa-database"></i> 已处理数据集 (Processed)</div>
+      <div class="data-name"><i class="fas fa-database"></i> 已处理数据集</div>
       <ul class="data-links">
         <li>
           <span class="data-label">CAMUS:</span> 
           <a href="https://huggingface.co/datasets/miyuki17/camus_png256x256_10f_20250709" target="_blank" class="link-tag">
-            HuggingFace (camus_png256x256_10f...) <i class="fas fa-external-link-alt"></i>
+            🤗 HuggingFace (camus_png256x256_10f...) <i class="fas fa-external-link-alt"></i>
           </a>
         </li>
         <li>
           <span class="data-label">EchoNet:</span> 
           <a href="https://huggingface.co/datasets/miyuki17/EchoNet-Dynamic" target="_blank" class="link-tag">
-            HuggingFace (EchoNet-Dynamic) <i class="fas fa-external-link-alt"></i>
+            🤗 HuggingFace (EchoNet-Dynamic) <i class="fas fa-external-link-alt"></i>
           </a>
         </li>
       </ul>
     </div>
 
     <div class="data-card">
-      <div class="data-name"><i class="fas fa-archive"></i> 原始数据集 (Raw)</div>
+      <div class="data-name"><i class="fas fa-archive"></i> 原始数据集</div>
       
       <div class="data-subsection">
         <span class="data-sub-title">CAMUS</span>
@@ -346,7 +345,7 @@ uv pip check</code></pre>
             </a>
           </li>
           <li>
-            <span class="data-label">HuggingFace:</span> 
+            <span class="data-label">🤗 Huggingface self:</span> 
             <a href="https://huggingface.co/datasets/miyuki17/CAMUS_public" target="_blank" class="link-tag">
               CAMUS_public <i class="fas fa-external-link-alt"></i>
             </a>
@@ -361,6 +360,12 @@ uv pip check</code></pre>
             <span class="data-label">官方网站:</span> 
             <a href="https://echonet.github.io/dynamic/" target="_blank" class="link-tag">
               EchoNet Dynamic Project <i class="fas fa-external-link-alt"></i>
+            </a>
+          </li>
+          <li>
+            <span class="data-label">🤗 HuggingFace:</span> 
+            <a href="https://huggingface.co/datasets/miyuki17/EchoNet-Dynamic-zip" target="_blank" class="link-tag">
+              EchoNet-Dynamic-zip <i class="fas fa-external-link-alt"></i>
             </a>
           </li>
         </ul>
