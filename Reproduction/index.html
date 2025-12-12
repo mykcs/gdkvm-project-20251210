@@ -109,70 +109,90 @@
     }
 
     /* Data List Styles */
-    .data-card {
+    .compact-card {
       background: #fff;
       border: 1px solid #ededed;
       border-radius: 6px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-    }
-    .data-name {
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: #205cbe;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid #f0f0f0;
-      padding-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-    }
-    .data-name i { margin-right: 0.5rem; }
-    
-    .data-subsection {
+      padding: 1rem 1.2rem;
       margin-bottom: 1.2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      font-size: 0.95rem;
     }
-    .data-subsection:last-child { margin-bottom: 0; }
     
-    .data-sub-title {
-      font-weight: 600;
-      color: #363636;
+    .compact-title {
+      font-weight: 700;
+      color: #205cbe;
       font-size: 1rem;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .data-links {
-      list-style: none !important;
-      margin-left: 0 !important;
-    }
-    .data-links li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
+    }
+    .compact-title i { margin-right: 0.5rem; font-size: 0.9em; }
+    
+    .compact-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.4rem;
       flex-wrap: wrap;
     }
-    .data-label {
-      font-weight: 500;
-      min-width: 140px; /* Increased width to accommodate longer labels */
-      color: #666;
+    .compact-row:last-child { margin-bottom: 0; }
+    
+    .compact-label {
+      font-weight: 600;
+      color: #4a4a4a;
+      width: 70px; /* Fixed width for alignment */
+      flex-shrink: 0;
       margin-right: 0.5rem;
     }
+    
+    .compact-group {
+      margin-bottom: 0.6rem;
+    }
+    .compact-group:last-child { margin-bottom: 0; }
+    
+    .compact-sub-label {
+      font-weight: 600;
+      color: #363636;
+      margin-right: 0.8rem;
+      min-width: 130px;
+      display: inline-block;
+    }
+
+    .compact-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .link-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .note-text {
+      font-size: 0.8rem;
+      color: #999;
+    }
+    
     .link-tag {
       background-color: #f5f5f5;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
       color: #3273dc;
       display: inline-flex;
       align-items: center;
       transition: background-color 0.2s;
+      border: 1px solid transparent;
     }
     .link-tag:hover {
       background-color: #e8f0fe;
+      border-color: #b5d0ff;
       text-decoration: none;
     }
-    .link-tag i { margin-left: 0.4rem; font-size: 0.8em; }
+    .link-tag i { margin-left: 0.3rem; font-size: 0.8em; }
 
     /* Hero Section */
     .hero { background-color: #f8f9fa; margin-bottom: 2rem; border-bottom: 1px solid #eaeaea; }
@@ -314,61 +334,61 @@ uv pip check</code></pre>
 
     <h3 class="subsection-title">2.1 数据集下载</h3>
     
-    <div class="data-card">
-      <div class="data-name"><i class="fas fa-database"></i> 已处理数据集</div>
-      <ul class="data-links">
-        <li>
-          <span class="data-label">CAMUS:</span> 
+    <div class="compact-card">
+      <!-- Processed -->
+      <div style="margin-bottom: 1rem;">
+        <div class="compact-title"><i class="fas fa-database"></i> 已处理数据集</div>
+        <div class="compact-row">
+          <span class="compact-label">CAMUS:</span>
           <a href="https://huggingface.co/datasets/miyuki17/camus_png256x256_10f_20250709" target="_blank" class="link-tag">
             🤗 HuggingFace (camus_png256x256_10f...) <i class="fas fa-external-link-alt"></i>
           </a>
-        </li>
-        <li>
-          <span class="data-label">EchoNet:</span> 
+        </div>
+        <div class="compact-row">
+          <span class="compact-label">EchoNet:</span>
           <a href="https://huggingface.co/datasets/miyuki17/EchoNet-Dynamic" target="_blank" class="link-tag">
             🤗 HuggingFace (EchoNet-Dynamic) <i class="fas fa-external-link-alt"></i>
           </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="data-card">
-      <div class="data-name"><i class="fas fa-archive"></i> 原始数据集</div>
-      
-      <div class="data-subsection">
-        <span class="data-sub-title">CAMUS</span>
-        <ul class="data-links">
-          <li>
-            <span class="data-label">官方网站:</span> 
-            <a href="https://www.creatis.insa-lyon.fr/Challenge/camus/" target="_blank" class="link-tag">
-              CAMUS Challenge <i class="fas fa-external-link-alt"></i>
-            </a>
-          </li>
-          <li>
-            <span class="data-label">🤗 Huggingface self:</span> 
-            <a href="https://huggingface.co/datasets/miyuki17/CAMUS_public" target="_blank" class="link-tag">
-              CAMUS_public <i class="fas fa-external-link-alt"></i>
-            </a>
-          </li>
-        </ul>
+        </div>
       </div>
 
-      <div class="data-subsection">
-        <span class="data-sub-title">EchoNet-Dynamic</span>
-        <ul class="data-links">
-          <li>
-            <span class="data-label">官方网站:</span> 
+      <hr style="margin: 0.8rem 0; background-color: #eee; height: 1px;">
+
+      <!-- Raw -->
+      <div>
+        <div class="compact-title"><i class="fas fa-archive"></i> 原始数据集</div>
+        
+        <!-- CAMUS -->
+        <div class="compact-group">
+          <div class="compact-sub-label">CAMUS</div>
+          <div class="compact-links">
+            <a href="https://www.creatis.insa-lyon.fr/Challenge/camus/" target="_blank" class="link-tag">
+              官方网站 <i class="fas fa-external-link-alt"></i>
+            </a>
+            <span class="link-group">
+              <a href="https://huggingface.co/datasets/miyuki17/CAMUS_public" target="_blank" class="link-tag">
+                🤗 Huggingface <i class="fas fa-external-link-alt"></i>
+              </a>
+              <span class="note-text">(第三方镜像)</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- EchoNet -->
+        <div class="compact-group">
+          <div class="compact-sub-label">EchoNet-Dynamic</div>
+          <div class="compact-links">
             <a href="https://echonet.github.io/dynamic/" target="_blank" class="link-tag">
-              EchoNet Dynamic Project <i class="fas fa-external-link-alt"></i>
+              官方网站 <i class="fas fa-external-link-alt"></i>
             </a>
-          </li>
-          <li>
-            <span class="data-label">🤗 HuggingFace:</span> 
-            <a href="https://huggingface.co/datasets/miyuki17/EchoNet-Dynamic-zip" target="_blank" class="link-tag">
-              EchoNet-Dynamic-zip <i class="fas fa-external-link-alt"></i>
-            </a>
-          </li>
-        </ul>
+            <span class="link-group">
+              <a href="https://huggingface.co/datasets/miyuki17/EchoNet-Dynamic-zip" target="_blank" class="link-tag">
+                🤗 Huggingface <i class="fas fa-external-link-alt"></i>
+              </a>
+              <span class="note-text">(第三方镜像)</span>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
