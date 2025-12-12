@@ -197,7 +197,7 @@
       transition: all 0.3s ease;
       text-align: center;
       /* Adjusted max-width for better visibility */
-      max-width: 130px; 
+      max-width: 200px; 
       margin: 0 auto; /* Center in container */
     }
 
@@ -305,7 +305,7 @@
     .sequence-col {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 2rem; /* Increased gap for better visual separation */
         align-items: center;
         justify-content: center;
     }
@@ -314,6 +314,40 @@
         width: 100%;
         display: flex;
         justify-content: center;
+    }
+
+    /* Specific size for training frames to match Figure 2's approximate frame size */
+    .training-frame-size {
+        width: 110px !important; /* Approx size of 18% width in a half-column */
+        height: 110px !important;
+        max-width: none !important;
+    }
+
+    /* Scrollable Container for Diagrams */
+    .scrollable-container {
+        overflow-x: auto;
+        padding-bottom: 15px; /* Space for scrollbar */
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+    
+    /* Scrollbar Styling */
+    .scrollable-container::-webkit-scrollbar {
+        height: 8px;
+    }
+    
+    .scrollable-container::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.05);
+        border-radius: 4px;
+    }
+    
+    .scrollable-container::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.2);
+        border-radius: 4px;
+    }
+    
+    .scrollable-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -494,114 +528,123 @@
       <!-- Training Flow Diagram (Vertical Strips / Horizontal Flow) -->
       <div class="box p-4 mt-4 has-background-danger-light">
         <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#ff3b30;">训练过程示意图 (Training with Sparse Loss)</p>
-        <div class="columns is-vcentered is-centered has-text-centered">
+        
+        <!-- Scrollable Wrapper -->
+        <div class="scrollable-container">
+            <!-- columns with is-mobile and min-width to force horizontal layout -->
+            <div class="columns is-vcentered is-centered has-text-centered is-mobile" style="min-width: 800px;">
 
-            <!-- Col 1: Input Sequence (Vertical) -->
-            <div class="column is-2">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$</p>
-                <div class="sequence-col">
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">F1</span>
+                <!-- Col 1: Input Sequence (Vertical) -->
+                <div class="column is-narrow"> 
+                    <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$</p>
+                    <div class="sequence-col">
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #dbdbdb;">
+                                <div class="lv-outline"></div>
+                                <span class="lv-text">F1</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">F2</span>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1;">
+                                <div class="lv-outline"></div>
+                                <span class="lv-text">F2</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item">
-                        <span class="has-text-grey-light is-size-5">...</span>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">F10</span>
+                        <div class="frame-item">
+                            <span class="has-text-grey-light is-size-5">...</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Arrow -->
-            <div class="column is-narrow">
-                <i class="fas fa-arrow-right fa-2x" style="color:#1a237e;"></i>
-            </div>
-
-            <!-- Col 2: Model -->
-            <div class="column is-2">
-                <div class="box has-background-primary has-text-white has-text-weight-bold p-3" style="border-radius: 10px;">
-                    Model
-                </div>
-            </div>
-
-            <!-- Arrow -->
-            <div class="column is-narrow">
-                <i class="fas fa-arrow-right fa-2x" style="color:#ff3b30;"></i>
-            </div>
-
-            <!-- Col 3: Prediction (Vertical) -->
-            <div class="column is-2">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测 $\hat{\mathbf{Y}}$</p>
-                <div class="sequence-col">
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">$\hat{y}_1$</span>
-                        </div>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">$\hat{y}_2$</span>
-                        </div>
-                    </div>
-                    <div class="frame-item">
-                        <span class="has-text-grey-light is-size-5">...</span>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">$\hat{y}_{10}$</span>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #dbdbdb;">
+                                <div class="lv-outline"></div>
+                                <span class="lv-text">F10</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Arrow -->
-            <div class="column is-narrow">
-                <i class="fas fa-arrows-alt-h fa-lg" style="color:#f9a124;"></i>
-            </div>
+                <!-- Arrow -->
+                <div class="column is-narrow">
+                    <i class="fas fa-arrow-right fa-2x" style="color:#1a237e;"></i>
+                </div>
 
-            <!-- Col 4: Loss (Vertical) -->
-            <div class="column is-2">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">损失 $\mathcal{L}$</p>
-                <div class="sequence-col">
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #f9a124; border-width: 2px;">
-                            <div class="lv-gt-mask"></div>
-                            <div class="lv-predicted-mask"></div> 
-                            <span class="lv-text">F1</span>
+                <!-- Col 2: Model -->
+                <div class="column is-narrow">
+                    <div class="box has-background-primary has-text-white has-text-weight-bold p-3" style="border-radius: 10px;">
+                        Model
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="column is-narrow">
+                    <i class="fas fa-arrow-right fa-2x" style="color:#ff3b30;"></i>
+                </div>
+
+                <!-- Col 3: Prediction (Vertical) -->
+                <div class="column is-narrow"> 
+                    <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测 $\hat{\mathbf{Y}}$</p>
+                    <div class="sequence-col">
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #ff3b30;">
+                                <div class="lv-predicted-mask"></div>
+                                <span class="lv-text">$\hat{y}_1$</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item" style="height: 40px; visibility: hidden;">
-                        <!-- Spacer for alignment -->
-                    </div>
-                    <div class="frame-item">
-                        <span class="has-text-grey-light is-size-5">...</span>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #f9a124; border-width: 2px;">
-                            <div class="lv-gt-mask"></div>
-                            <div class="lv-predicted-mask"></div> 
-                            <span class="lv-text">F10</span>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #ff3b30;">
+                                <div class="lv-predicted-mask"></div>
+                                <span class="lv-text">$\hat{y}_2$</span>
+                            </div>
+                        </div>
+                        <div class="frame-item">
+                            <span class="has-text-grey-light is-size-5">...</span>
+                        </div>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #ff3b30;">
+                                <div class="lv-predicted-mask"></div>
+                                <span class="lv-text">$\hat{y}_{10}$</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <!-- Arrow -->
+                <div class="column is-narrow">
+                    <i class="fas fa-arrows-alt-h fa-lg" style="color:#f9a124;"></i>
+                </div>
+
+                <!-- Col 4: Loss (Vertical) -->
+                <div class="column is-narrow"> 
+                    <p class="subtitle is-7 mb-2 has-text-weight-semibold">损失 $\mathcal{L}$</p>
+                    <div class="sequence-col">
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #f9a124; border-width: 2px;">
+                                <div class="lv-gt-mask"></div>
+                                <div class="lv-predicted-mask"></div> 
+                                <span class="lv-text">F1</span>
+                            </div>
+                        </div>
+                        <div class="frame-item" style="height: 110px; visibility: hidden;">
+                            <!-- Spacer for alignment, height matches frame size -->
+                        </div>
+                        <div class="frame-item">
+                            <span class="has-text-grey-light is-size-5">...</span>
+                        </div>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #f9a124; border-width: 2px;">
+                                <div class="lv-gt-mask"></div>
+                                <div class="lv-predicted-mask"></div> 
+                                <span class="lv-text">F10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+        <!-- Mobile Hint -->
+        <p class="is-hidden-tablet has-text-centered is-size-7 has-text-grey mt-2">
+            <i class="fas fa-hand-pointer"></i> 左右滑动查看完整流程
+        </p>
       </div>
       <!-- End Training Flow Diagram -->
       
@@ -611,81 +654,90 @@
       <!-- Evaluation Flow Diagram (Vertical Strips / Horizontal Flow) -->
       <div class="box p-4 mt-4 has-background-info-light">
         <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#007aff;">评估过程示意图 (Inference)</p>
-        <div class="columns is-vcentered is-centered has-text-centered">
-            
-            <!-- Col 1: Input Sequence (Vertical) -->
-            <div class="column is-2">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$ (无真值)</p>
-                <div class="sequence-col">
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">F1</span>
+        
+        <!-- Scrollable Wrapper -->
+        <div class="scrollable-container">
+            <!-- columns with is-mobile and min-width -->
+            <div class="columns is-vcentered is-centered has-text-centered is-mobile" style="min-width: 800px;">
+                
+                <!-- Col 1: Input Sequence (Vertical) -->
+                <div class="column is-narrow"> 
+                    <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$ (无真值)</p>
+                    <div class="sequence-col">
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #dbdbdb;"> 
+                                <div class="lv-outline"></div>
+                                <span class="lv-text">F1</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">F2</span>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1;"> 
+                                <div class="lv-outline"></div>
+                                <span class="lv-text">F2</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item">
-                        <span class="has-text-grey-light is-size-5">...</span>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">F10</span>
+                        <div class="frame-item">
+                            <span class="has-text-grey-light is-size-5">...</span>
+                        </div>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #dbdbdb;"> 
+                                <div class="lv-outline"></div>
+                                <span class="lv-text">F10</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Arrow -->
-            <div class="column is-narrow">
-                <i class="fas fa-arrow-right fa-2x" style="color:#1a237e;"></i>
-            </div>
-
-            <!-- Col 2: Model -->
-            <div class="column is-2">
-                <div class="box has-background-primary has-text-white has-text-weight-bold p-3" style="border-radius: 10px;">
-                    Model / <i class="fas fa-user-md"></i>
+                
+                <!-- Arrow -->
+                <div class="column is-narrow">
+                    <i class="fas fa-arrow-right fa-2x" style="color:#1a237e;"></i>
                 </div>
-            </div>
-            
-            <!-- Arrow -->
-            <div class="column is-narrow">
-                <i class="fas fa-arrow-right fa-2x" style="color:#ff3b30;"></i>
-            </div>
 
-            <!-- Col 3: Prediction (Vertical) -->
-            <div class="column is-2">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$</p>
-                <div class="sequence-col">
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">$\hat{y}_1$</span>
+                <!-- Col 2: Model -->
+                <div class="column is-narrow">
+                    <div class="box has-background-primary has-text-white has-text-weight-bold p-3" style="border-radius: 10px;">
+                        Model / <i class="fas fa-user-md"></i>
+                    </div>
+                </div>
+                
+                <!-- Arrow -->
+                <div class="column is-narrow">
+                    <i class="fas fa-arrow-right fa-2x" style="color:#ff3b30;"></i>
+                </div>
+
+                <!-- Col 3: Prediction (Vertical) -->
+                <div class="column is-narrow"> 
+                    <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$</p>
+                    <div class="sequence-col">
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #ff3b30;"> 
+                                <div class="lv-predicted-mask"></div>
+                                <span class="lv-text">$\hat{y}_1$</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">$\hat{y}_2$</span>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #ff3b30;"> 
+                                <div class="lv-predicted-mask"></div>
+                                <span class="lv-text">$\hat{y}_2$</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="frame-item">
-                        <span class="has-text-grey-light is-size-5">...</span>
-                    </div>
-                    <div class="frame-item">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">$\hat{y}_{10}$</span>
+                        <div class="frame-item">
+                            <span class="has-text-grey-light is-size-5">...</span>
+                        </div>
+                        <div class="frame-item">
+                            <div class="img-placeholder lv-bg training-frame-size" style="aspect-ratio: 1; border-color: #ff3b30;"> 
+                                <div class="lv-predicted-mask"></div>
+                                <span class="lv-text">$\hat{y}_{10}$</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Mobile Hint -->
+        <p class="is-hidden-tablet has-text-centered is-size-7 has-text-grey mt-2">
+            <i class="fas fa-hand-pointer"></i> 左右滑动查看完整流程
+        </p>
       </div>
       <!-- End Evaluation Flow Diagram -->
       
