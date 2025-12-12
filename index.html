@@ -73,6 +73,12 @@
         font-weight: 600;
         color: #1a237e; /* Custom color for step titles */
     }
+    
+    .title.is-6 {
+        font-size: 1.0rem !important;
+        font-weight: 600;
+    }
+
 
     .subtitle {
       font-family: 'Google Sans', sans-serif;
@@ -225,7 +231,7 @@
         text-decoration: none;
     }
     
-    .author-block a:hover {
+    a:hover {
         color: #3273dc;
     }
 
@@ -423,13 +429,13 @@
               <p class="subtitle is-6 mb-2 has-text-weight-semibold">输出帧序列 (Output Frame Sequence - 10 Frames) $\mathbf{X}$</p>
               <div style="display: flex; justify-content: space-between; align-items: flex-end;">
                 
-                <!-- Frame 1 (Black/White LV, no green checkmark) -->
+                <!-- Frame 1 (Black/White LV) -->
                 <div style="position: relative; width: 18%;">
                   <div class="img-placeholder small-figure lv-bg" style="height: 80px; padding: 0.5rem; border-color: #dbdbdb;">
                       <div class="lv-outline"></div>
                       <span class="has-text-weight-semibold lv-text">F1</span>
                   </div>
-                  <p style="font-size: 0.75rem; margin-top: 5px; color: #48c774; font-weight: bold;">有真值 (GT)</p>
+                  <p style="font-size: 0.75rem; margin-top: 5px;">&nbsp;</p> <!-- Space placeholder -->
                 </div>
 
                 <!-- Frames 2-4 -->
@@ -455,13 +461,13 @@
                   <p style="font-size: 0.75rem; margin-top: 5px;">共 10 帧</p>
                 </div>
 
-                <!-- Frame 10 (Black/White LV, no green checkmark) -->
+                <!-- Frame 10 (Black/White LV) -->
                 <div style="position: relative; width: 18%;">
                   <div class="img-placeholder small-figure lv-bg" style="height: 80px; padding: 0.5rem; border-color: #dbdbdb;">
                       <div class="lv-outline"></div>
                       <span class="has-text-weight-semibold lv-text">F10</span>
                   </div>
-                  <p style="font-size: 0.75rem; margin-top: 5px; color: #48c774; font-weight: bold;">有真值 (GT)</p>
+                  <p style="font-size: 0.75rem; margin-top: 5px;">&nbsp;</p> <!-- Space placeholder -->
                 </div>
 
               </div>
@@ -471,136 +477,247 @@
       </div>
       <!-- End Data Processing Flow Diagram -->
 
-      <!-- Step 2: 问题设定 (Problem Formulation) - Now uses a diagram -->
+      <!-- Step 2: 问题设定 (Problem Formulation) - Now split into Training and Evaluation -->
       <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.5rem;">2. 问题设定 (Problem Formulation)</h4>
       
+      <!-- 2.1 训练阶段 (Training Phase) -->
+      <h5 class="title is-6" style="margin-top: 1.5rem; color: #ff3b30;">2.1 训练阶段 (Training Phase - Sparse Supervision)</h5>
       
-      <!-- Problem Formulation Flow Diagram -->
-      <div class="box p-4 mt-4 has-background-light">
-        <div class="columns is-vcentered is-mobile is-multiline has-text-centered">
+      <p>在训练过程中，模型接收完整的 10 帧输入序列 $\mathbf{X}$（不包含真值 $\mathbf{Y}$）。模型预测出整个序列的 LV 分割掩膜 $\hat{\mathbf{Y}}$ 后，仅序列的第 1 帧 ($\hat{y}_1$) 和第 10 帧 ($\hat{y}_{10}$) 的预测结果与稀疏真值 ($y_1, y_{10}$) 进行比较以计算损失 ($\mathcal{L}$)。</p>
 
-          <!-- Input Block: 10 Frames (F1 with GT, F10 with GT) - ALL BLACK/WHITE INPUT FRAMES -->
-          <div class="column is-12-mobile is-4-tablet">
-            <p class="subtitle is-6 mb-2 has-text-weight-semibold">输入序列 $\mathbf{X}$ (10 Frames)</p>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
-                <!-- F1 (Input + GT) -->
-                <div style="position: relative; width: 22%;">
-                    <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #dbdbdb;">
-                        <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                        <span class="lv-text">F1</span>
-                        <div style="font-size: 0.6rem; color: white; z-index: 11;">黑白图/LV</div>
-                    </div>
-                    <p class="has-text-weight-bold" style="color: #48c774;">有真值 ($y_1$)</p>
-                </div>
-                <!-- F2 -->
-                <div style="width: 22%;">
-                    <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem;">
-                        <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                        <span class="lv-text">F2</span>
-                    </div>
-                    <p>&nbsp;</p>
-                </div>
-                <!-- ... -->
-                <div style="width: 22%;">
-                    <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem;">
-                        <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                        <span class="lv-text">...</span>
-                    </div>
-                    <p>&nbsp;</p>
-                </div>
-                <!-- F10 (Input + GT) -->
-                <div style="position: relative; width: 22%;">
-                    <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #dbdbdb;">
-                        <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                        <span class="lv-text">F10</span>
-                        <div style="font-size: 0.6rem; color: white; z-index: 11;">黑白图/LV</div>
-                    </div>
-                    <p class="has-text-weight-bold" style="color: #48c774;">有真值 ($y_{10}$)</p>
-                </div>
-            </div>
-            <div style="margin-top: 10px;">
-                <i class="fas fa-arrow-down fa-2x" style="color:#1a237e;"></i>
-                <p class="is-size-7 has-text-weight-bold" style="color:#1a237e;">输入模型 $\mathcal{M}$</p>
-            </div>
-          </div>
-          
-          <!-- Middle Block: Model + Output + Loss -->
-          <div class="column is-12-mobile is-8-tablet">
-            <div class="is-flex is-flex-direction-column is-align-items-center">
+      <!-- Training Flow Diagram -->
+      <div class="box p-4 mt-4 has-background-danger-light">
+        <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#ff3b30;">训练过程示意图 (Training with Sparse Loss)</p>
+        <div class="columns is-multiline is-centered has-text-centered">
 
-                <!-- Model Block -->
-                <div class="box has-background-primary has-text-white has-text-weight-bold p-3 mb-4" style="border-radius: 10px; font-size: 1rem; width: 100%; max-width: 250px;">
+            <!-- Input X -->
+            <div class="column is-12">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入序列 $\mathbf{X}$ (10 Frames)</p>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
+                    
+                    <!-- F1 (Input B/W) -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #dbdbdb;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">F1</span>
+                        </div>
+                    </div>
+                    <!-- F2 (Input B/W) -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">F2</span>
+                        </div>
+                    </div>
+                    <!-- ... -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">...</span>
+                        </div>
+                    </div>
+                    <!-- F10 (Input B/W) -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #dbdbdb;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">F10</span>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-arrow-down fa-2x mt-2" style="color:#1a237e;"></i>
+            </div>
+
+            <!-- Model M and Output Y_hat -->
+            <div class="column is-12 has-text-centered">
+                <div class="box has-background-primary has-text-white has-text-weight-bold p-3 mb-2" style="border-radius: 10px; display: inline-block;">
                     模型 ($\mathcal{M}$)
                 </div>
-
-                <i class="fas fa-arrow-down fa-2x" style="color:#1a237e;"></i>
-                <p class="is-size-7 has-text-weight-bold mb-4" style="color:#1a237e;">预测输出 $\hat{\mathbf{Y}}$ (10 Masks)</p>
-
-                <!-- Output Block: 10 Predicted Masks -->
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%; font-size: 0.75rem;">
+                <i class="fas fa-arrow-down fa-2x" style="color:#ff3b30;"></i>
+                <p class="subtitle is-7 mt-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$ (10 Masks)</p>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
                     
-                    <!-- M1 (Predicted Mask + GT Comparison) -->
+                    <!-- M1 (Red prediction) -->
                     <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30; border-width: 2px;">
-                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                            <div class="lv-gt-mask" style="width: 13px; height: 13px;"></div> <!-- Green GT center -->
-                            <div class="lv-predicted-mask" style="width: 13px; height: 13px;"></div> <!-- Red Pred offset -->
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
                             <span class="lv-text">$\hat{y}_1$</span>
                         </div>
                         <i class="fas fa-arrow-down fa-lg mt-1" style="color:#ff3b30;"></i>
                     </div>
-                    
-                    <!-- M2 (Predicted Mask - Red only) -->
+                    <!-- M2 (Red prediction) -->
                     <div style="width: 22%;">
                         <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
-                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div> <!-- Center aligned -->
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
                             <span class="lv-text">$\hat{y}_2$</span>
                         </div>
                         <i class="fas fa-arrow-down fa-lg mt-1" style="visibility: hidden;"></i>
                     </div>
-                    
                     <!-- ... -->
                     <div style="width: 22%;">
                         <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
-                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
                             <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
                             <span class="lv-text">...</span>
                         </div>
                         <i class="fas fa-arrow-down fa-lg mt-1" style="visibility: hidden;"></i>
                     </div>
-                    
-                    <!-- M10 (Predicted Mask + GT Comparison) -->
+                    <!-- M10 (Red prediction) -->
                     <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30; border-width: 2px;">
-                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
-                            <div class="lv-gt-mask" style="width: 13px; height: 13px;"></div> <!-- Green GT center -->
-                            <div class="lv-predicted-mask" style="width: 13px; height: 13px;"></div> <!-- Red Pred offset -->
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
                             <span class="lv-text">$\hat{y}_{10}$</span>
                         </div>
                         <i class="fas fa-arrow-down fa-lg mt-1" style="color:#ff3b30;"></i>
                     </div>
                 </div>
+            </div>
 
-                <!-- Loss Calculation Block -->
-                <div class="box has-background-danger-light has-text-danger has-text-weight-bold p-3 mt-4" style="border-radius: 10px; font-size: 1rem; width: 100%; max-width: 300px;">
-                    <i class="fas fa-balance-scale-right mr-2"></i> 损失计算 $\mathcal{L}$ (Loss)
-                    <p class="is-size-7 mt-1 has-text-danger">仅比较 $\hat{y}_1$ 与 $y_1$，以及 $\hat{y}_{10}$ 与 $y_{10}$</p>
+            <!-- GT Y and Comparison/Loss -->
+            <div class="column is-12">
+                <!-- Loss Comparison -->
+                <i class="fas fa-arrows-v fa-2x mt-3 mb-3" style="color:#f9a124;"></i> 
+                <p class="subtitle is-7 has-text-weight-semibold">预测 $\hat{\mathbf{Y}}$ 与 稀疏真值 $\mathbf{Y}$ 对比</p>
+
+                <!-- Comparison Masks -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
+                    <!-- Loss F1 -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #f9a124; border-width: 2px;">
+                            <div class="lv-gt-mask" style="width: 13px; height: 13px;"></div>
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px;"></div> 
+                            <span class="lv-text">F1</span>
+                        </div>
+                        <p class="has-text-weight-bold has-text-danger mt-1">计算 $\mathcal{L}_1$</p>
+                    </div>
+                    <!-- Empty/Invisible F2 -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder" style="height: 60px; padding: 0.4rem;">
+                            <span class="has-text-grey-light">F2 (无 GT)</span>
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <!-- Empty/Invisible ... -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder" style="height: 60px; padding: 0.4rem;">
+                            <span class="has-text-grey-light">...</span>
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <!-- Loss F10 -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #f9a124; border-width: 2px;">
+                            <div class="lv-gt-mask" style="width: 13px; height: 13px;"></div>
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px;"></div> 
+                            <span class="lv-text">F10</span>
+                        </div>
+                        <p class="has-text-weight-bold has-text-danger mt-1">计算 $\mathcal{L}_{10}$</p>
+                    </div>
+                </div>
+                
+                <!-- Final Loss Box -->
+                <div class="box has-background-danger has-text-white has-text-weight-bold p-3 mt-4" style="border-radius: 10px; font-size: 1rem; display: inline-block;">
+                    总损失 $\mathcal{L} = \mathcal{L}_1 + \mathcal{L}_{10}$
                 </div>
             </div>
-          </div>
-
         </div>
       </div>
-      <!-- End Problem Formulation Flow Diagram -->
+      <!-- End Training Flow Diagram -->
       
-      <!-- Step 3: 我们的模型怎么具体处理一个视频序列的 (How Our Model Specifically Processes a Video Sequence) -->
-      <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.5rem;">3. GDKVM 模型对视频序列的具体处理 (GDKVM Model's Specific Video Sequence Processing)</h4>
+      <!-- 2.2 评估阶段 (Evaluation Phase) -->
+      <h5 class="title is-6" style="margin-top: 3rem; color: #007aff;">2.2 评估阶段 (Evaluation Phase - Clinical Scenario)</h5>
       
-      <p>
-        GDKVM 采用序列化的方式处理视频流，通过核心的**时空键值记忆模块 (Spatio-Temporal Key-Value Memory)** 来传递时间信息，并利用**门控 Delta 规则 (GDR)** 进行高效的内存更新。
-      </p>
-
+      <p>在评估阶段（或实际临床应用中），模型接收完整的 10 帧输入序列 $\mathbf{X}$，且不提供任何真值信息，这模拟了医生在真实临床中拿到视频序列直接判断 LV 掩膜的场景。模型的任务是准确地预测整个序列的所有 10 帧 LV 分割掩膜 $\hat{\mathbf{Y}}$。</p>
+      
+      <!-- Evaluation Flow Diagram -->
+      <div class="box p-4 mt-4 has-background-info-light">
+        <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#007aff;">评估过程示意图 (Inference)</p>
+        <div class="columns is-vcentered is-centered has-text-centered is-multiline">
+            
+            <!-- Input X (No GT labels/visuals) -->
+            <div class="column is-12">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入序列 $\mathbf{X}$ (10 Frames)</p>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
+                    
+                    <!-- F1 (Input B/W) -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #dbdbdb;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">F1</span>
+                        </div>
+                    </div>
+                    <!-- F2 (Input B/W) -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">F2</span>
+                        </div>
+                    </div>
+                    <!-- ... -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">...</span>
+                        </div>
+                    </div>
+                    <!-- F10 (Input B/W) -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #dbdbdb;">
+                            <div class="lv-outline" style="width: 15px; height: 15px; border-width: 1px;"></div>
+                            <span class="lv-text">F10</span>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-arrow-down fa-2x mt-2" style="color:#1a237e;"></i>
+            </div>
+            
+            <!-- Model M -->
+            <div class="column is-12 has-text-centered">
+                <div class="box has-background-primary has-text-white has-text-weight-bold p-3 mb-2" style="border-radius: 10px; display: inline-block;">
+                    模型 ($\mathcal{M}$)
+                </div>
+                <i class="fas fa-arrow-down fa-2x" style="color:#ff3b30;"></i>
+            </div>
+            
+            <!-- Output Y_hat -->
+            <div class="column is-12">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$ (10 Masks)</p>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
+                    <!-- M1 (Red prediction) -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
+                            <span class="lv-text">$\hat{y}_1$</span>
+                        </div>
+                    </div>
+                    <!-- M2 (Red prediction) -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
+                            <span class="lv-text">$\hat{y}_2$</span>
+                        </div>
+                    </div>
+                    <!-- ... -->
+                    <div style="width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
+                            <span class="lv-text">...</span>
+                        </div>
+                    </div>
+                    <!-- M10 (Red prediction) -->
+                    <div style="position: relative; width: 22%;">
+                        <div class="img-placeholder lv-bg" style="height: 60px; padding: 0.4rem; border-color: #ff3b30;">
+                            <div class="lv-predicted-mask" style="width: 13px; height: 13px; top: 50%; left: 50%;"></div>
+                            <span class="lv-text">$\hat{y}_{10}$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- End Evaluation Flow Diagram -->
+      
+      <!-- Step 3: GDKVM 模型对视频序列的具体处理 -->
+      <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.5rem;">3. GDKVM 模型对视频序列的具体处理</h4>
+      
       <!-- GDKVM Processing Flow Diagram -->
       <div class="columns is-vcentered is-mobile is-multiline has-text-centered" style="margin-top: 1.5rem; margin-bottom: 1rem;">
           <!-- Column 1: Input Frame x_t -->
