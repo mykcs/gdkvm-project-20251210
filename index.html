@@ -39,13 +39,13 @@
       color: #1a237e;
     }
 
-    /* ICCV Logo Styling: Reverting to original layout for img tag */
+    /* ICCV Logo Styling */
     .iccv-logo {
       position: absolute;
       top: 1.5rem;
       left: 1.5rem;
       width: 140px;
-      height: auto; /* Allow image to size naturally */
+      height: auto;
       z-index: 10;
     }
 
@@ -71,14 +71,13 @@
     .title.is-5 {
         font-size: 1.25rem !important;
         font-weight: 600;
-        color: #1a237e; /* Custom color for step titles */
+        color: #1a237e; 
     }
     
     .title.is-6 {
         font-size: 1.0rem !important;
         font-weight: 600;
     }
-
 
     .subtitle {
       font-family: 'Google Sans', sans-serif;
@@ -102,10 +101,9 @@
 
     /* Mobile Optimizations */
     @media screen and (max-width: 768px) {
-      /* Logo adjusts to center on mobile */
       .iccv-logo {
         position: static;
-        display: block; /* Reverted to block for mobile img centering */
+        display: block; 
         margin: 0 auto 1.5rem auto;
         width: 120px;
         height: auto;
@@ -129,7 +127,6 @@
         padding: 1.5rem !important; 
       }
       
-      /* Updated Mobile Button Styling */
       .publication-links {
         display: flex;
         flex-wrap: wrap;
@@ -140,7 +137,7 @@
         margin: 0 !important;
       }
       .publication-links .button {
-        width: auto !important; /* Changed from 100% to auto */
+        width: auto !important; 
         margin-bottom: 0 !important;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -186,7 +183,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Visual Placeholders for Missing Images (Used in Flow Diagram) */
+    /* Visual Placeholders */
     .img-placeholder {
       background-color: #f0f2f5;
       border: 2px dashed #dbdbdb;
@@ -196,9 +193,10 @@
       align-items: center;
       justify-content: center;
       color: #999;
-      padding: 1rem;
+      padding: 0.25rem;
       transition: all 0.3s ease;
       text-align: center;
+      margin: 0 auto; /* Center in container */
     }
 
     .img-placeholder:hover {
@@ -207,17 +205,18 @@
     }
 
     .img-placeholder i {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.2rem;
     }
 
     .img-placeholder.main-figure {
         height: 300px;
         width: 100%;
+        max-width: none; /* Main figure can be wide */
     }
 
     .img-placeholder.small-figure {
-        height: 120px;
+        /* Removed fixed height for aspect ratio */
         width: 100%;
     }
     
@@ -251,29 +250,26 @@
         padding: 1.5rem;
     }
 
-    /* Custom styles for LV simulation in diagrams */
-    /* 1. Base style for echo image simulation (Black/White) */
+    /* Custom styles for LV simulation */
     .lv-bg {
-        background-color: #333 !important; /* Grayscale/Black background for echo */
+        background-color: #333 !important; 
         color: white !important;
         position: relative;
         overflow: hidden;
     }
 
-    /* 2. Simulation of LV outline/structure (White outline) */
     .lv-outline {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 30%; /* Responsive size */
-        height: 30%; /* Responsive size */
+        width: 30%; 
+        height: 30%; 
         border-radius: 50%;
         border: 2px solid white; 
-        background: #666; /* Simulates LV internal cavity */
+        background: #666; 
     }
 
-    /* 3. GT Mask (Green, central, used for comparison only) */
     .lv-gt-mask {
         position: absolute;
         top: 50%;
@@ -282,33 +278,47 @@
         width: 25%; 
         height: 25%;
         border-radius: 50%;
-        background-color: rgba(0, 200, 0, 0.7); /* Green, transparent for overlap effect */
+        background-color: rgba(0, 200, 0, 0.7); 
         z-index: 10;
     }
 
-    /* 4. Predicted Mask (Red, slightly offset for comparison) */
     .lv-predicted-mask {
         position: absolute;
-        top: 55%; /* Slight offset from center */
+        top: 55%; 
         left: 55%; 
         transform: translate(-50%, -50%);
         width: 25%; 
         height: 25%;
         border-radius: 50%;
-        background-color: rgba(255, 0, 0, 0.7); /* Red, transparent for overlap effect (yellow/orange) */
+        background-color: rgba(255, 0, 0, 0.7); 
         z-index: 11;
     }
     
-    /* 5. LV text remains on top */
     .lv-text {
         z-index: 12;
+        font-size: 0.7rem;
+    }
+
+    /* Vertical Sequence Container Style */
+    .sequence-col {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .frame-item {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
   </style>
 </head>
 <body>
 
 <section class="hero">
-  <!-- ICCV Logo: Reverted to original img tag and source -->
+  <!-- ICCV Logo -->
   <img src="static/image/iccv2_logo/LogoColor.png" alt="ICCV Logo" class="iccv-logo">
 
   <div class="hero-body">
@@ -360,7 +370,7 @@
   </div>
 </section>
 
-<!-- Teaser Figure (Figure 1): GDKVM Architecture -->
+<!-- Teaser Figure -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -375,99 +385,93 @@
 </section>
 
 
-<!-- NEW SECTION: Model Methodology (方法论) -->
+<!-- NEW SECTION: Model Methodology -->
 <section class="section" style="padding-top: 1rem;">
   <div class="container is-max-desktop">
     <h3 class="title is-4 has-text-centered mb-5" style="font-weight: 700;">模型方法与流程 (Model Methodology and Flow)</h3>
     
     <div class="content">
 
-      <!-- Step 1: 数据处理 (Data Processing) -->
+      <!-- Step 1: Data Processing -->
       <h4 class="title is-5" style="margin-bottom: 0.5rem;">1. 数据处理 (Data Processing)</h4>
       
-      
-      <!-- Data Processing Flow Diagram (Moved inside Step 1) -->
+      <!-- Data Processing Flow Diagram (Reverted to Horizontal Layout) -->
       <div class="box p-4 mt-4 has-background-light">
           <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#1a237e;">数据处理流程示意图 (Simplified Data Processing Flow)</p>
           <div class="columns is-vcentered has-text-centered is-mobile is-multiline">
             
             <!-- 1. Input Video -->
-            <div class="column is-4-mobile is-3-tablet">
-              <div class="img-placeholder" style="height: 120px; padding: 1rem; background-color: #fcebeb; border-color: #ff3b30;">
+            <div class="column is-4-mobile is-2-tablet">
+              <div class="img-placeholder" style="aspect-ratio: 4/3; width: 100%; padding: 1rem; background-color: #fcebeb; border-color: #ff3b30;">
                   <i class="fas fa-video" style="color:#ff3b30;"></i>
-                  <span class="has-text-weight-bold">病人视频片段 (Patient Video Segment)</span>
+                  <span class="has-text-weight-bold is-size-7">病人视频片段</span>
               </div>
             </div>
 
-            <!-- Arrow 1 (Desktop Only) -->
+            <!-- Arrow -->
             <div class="column is-hidden-mobile is-1-tablet">
               <i class="fas fa-arrow-right fa-2x" style="color:#3273dc;"></i>
-            </div>
-            <!-- Arrow 1 (Mobile Only) -->
-            <div class="column is-12-mobile is-hidden-tablet" style="padding: 0.5rem 0;">
-              <i class="fas fa-arrow-down fa-2x" style="color:#3273dc;"></i>
             </div>
             
             <!-- 2. Data Processor -->
             <div class="column is-4-mobile is-2-tablet">
               <div class="box has-background-info-light has-text-info has-text-weight-bold p-3" style="border-radius: 8px;">
-                  <i class="fas fa-cogs mr-1"></i>数据处理器 (Data Processor)
+                  <i class="fas fa-cogs mr-1"></i>数据处理
               </div>
             </div>
 
-            <!-- Arrow 2 (Desktop Only) -->
+            <!-- Arrow -->
             <div class="column is-hidden-mobile is-1-tablet">
               <i class="fas fa-arrow-right fa-2x" style="color:#3273dc;"></i>
             </div>
-            <!-- Arrow 2 (Mobile Only) -->
-            <div class="column is-12-mobile is-hidden-tablet" style="padding: 0.5rem 0;">
-              <i class="fas fa-arrow-down fa-2x" style="color:#3273dc;"></i>
-            </div>
             
-            <!-- 3. Output 10 Frames (Input X) - ALL BLACK/WHITE INPUT FRAMES -->
-            <div class="column is-12-mobile is-5-tablet">
-              <p class="subtitle is-6 mb-2 has-text-weight-semibold">输出帧序列 (Output Frame Sequence - 10 Frames) $\mathbf{X}$</p>
+            <!-- 3. Output 10 Frames (Horizontal) -->
+            <div class="column is-12-mobile is-6-tablet">
+              <p class="subtitle is-7 mb-2 has-text-weight-semibold">输出帧序列 $\mathbf{X}$ (10 Frames)</p>
               <div style="display: flex; justify-content: space-between; align-items: flex-end;">
                 
-                <!-- Frame 1 (Black/White LV) -->
+                <!-- Frame 1 -->
                 <div style="position: relative; width: 18%;">
-                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.5rem; border-color: #dbdbdb;">
+                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; padding: 0.5rem; border-color: #dbdbdb;">
                       <div class="lv-outline"></div>
                       <span class="has-text-weight-semibold lv-text">F1</span>
                   </div>
-                  <p style="font-size: 0.75rem; margin-top: 5px;">&nbsp;</p> <!-- Space placeholder -->
+                  <p style="font-size: 0.75rem; margin-top: 5px; color: #48c774; font-weight: bold;">有真值 (GT)</p>
                 </div>
 
-                <!-- Frames 2-4 -->
+                <!-- Frame 2 -->
                 <div style="width: 18%;">
-                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.5rem;">
+                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; padding: 0.5rem;">
                       <div class="lv-outline"></div>
                       <span class="has-text-weight-semibold lv-text">F2</span>
                   </div>
                   <p style="font-size: 0.75rem; margin-top: 5px;">&nbsp;</p>
                 </div>
+                
+                <!-- Frame 3 -->
                 <div style="width: 18%;">
-                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.5rem;">
+                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; padding: 0.5rem;">
                       <div class="lv-outline"></div>
                       <span class="has-text-weight-semibold lv-text">F3</span>
                   </div>
                   <p style="font-size: 0.75rem; margin-top: 5px;">&nbsp;</p>
                 </div>
+
+                <!-- ... -->
                 <div style="width: 18%;">
-                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.5rem;">
-                      <div class="lv-outline"></div>
-                      <span class="has-text-weight-semibold lv-text">...</span>
+                  <div style="aspect-ratio: 1; padding: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                      <span class="has-text-weight-bold is-size-5">...</span>
                   </div>
                   <p style="font-size: 0.75rem; margin-top: 5px;">共 10 帧</p>
                 </div>
 
-                <!-- Frame 10 (Black/White LV) -->
+                <!-- Frame 10 -->
                 <div style="position: relative; width: 18%;">
-                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.5rem; border-color: #dbdbdb;">
+                  <div class="img-placeholder small-figure lv-bg" style="aspect-ratio: 1; padding: 0.5rem; border-color: #dbdbdb;">
                       <div class="lv-outline"></div>
                       <span class="has-text-weight-semibold lv-text">F10</span>
                   </div>
-                  <p style="font-size: 0.75rem; margin-top: 5px;">&nbsp;</p> <!-- Space placeholder -->
+                  <p style="font-size: 0.75rem; margin-top: 5px; color: #48c774; font-weight: bold;">有真值 (GT)</p>
                 </div>
 
               </div>
@@ -477,234 +481,202 @@
       </div>
       <!-- End Data Processing Flow Diagram -->
 
-      <!-- Step 2: 问题设定 (Problem Formulation) - Now split into Training and Evaluation -->
+      <!-- Step 2: Problem Formulation -->
       <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.5rem;">2. 问题设定 (Problem Formulation)</h4>
       
-      <!-- 2.1 训练阶段 (Training Phase) -->
+      <!-- 2.1 Training Phase -->
       <h5 class="title is-6" style="margin-top: 1.5rem; color: #ff3b30;">2.1 训练阶段 (Training Phase - Sparse Supervision)</h5>
       
       <p>在训练过程中，模型接收完整的 10 帧输入序列 $\mathbf{X}$（不包含真值 $\mathbf{Y}$）。模型预测出整个序列的 LV 分割掩膜 $\hat{\mathbf{Y}}$ 后，仅序列的第 1 帧 ($\hat{y}_1$) 和第 10 帧 ($\hat{y}_{10}$) 的预测结果与稀疏真值 ($y_1, y_{10}$) 进行比较以计算损失 ($\mathcal{L}$)。</p>
 
-      <!-- Training Flow Diagram -->
+      <!-- Training Flow Diagram (Vertical Strips / Horizontal Flow) -->
       <div class="box p-4 mt-4 has-background-danger-light">
         <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#ff3b30;">训练过程示意图 (Training with Sparse Loss)</p>
-        <div class="columns is-multiline is-centered has-text-centered">
+        <div class="columns is-vcentered is-centered has-text-centered">
 
-            <!-- Input X -->
-            <div class="column is-12">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入序列 $\mathbf{X}$ (10 Frames)</p>
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
-                    
-                    <!-- F1 (Input B/W) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #dbdbdb;">
+            <!-- Col 1: Input Sequence (Vertical) -->
+            <div class="column is-2">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$</p>
+                <div class="sequence-col">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
                             <div class="lv-outline"></div>
                             <span class="lv-text">F1</span>
                         </div>
                     </div>
-                    <!-- F2 (Input B/W) -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1;">
                             <div class="lv-outline"></div>
                             <span class="lv-text">F2</span>
                         </div>
                     </div>
-                    <!-- ... -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">...</span>
-                        </div>
+                    <div class="frame-item">
+                        <span class="has-text-grey-light is-size-5">...</span>
                     </div>
-                    <!-- F10 (Input B/W) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #dbdbdb;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
                             <div class="lv-outline"></div>
                             <span class="lv-text">F10</span>
                         </div>
                     </div>
                 </div>
-                <i class="fas fa-arrow-down fa-2x mt-2" style="color:#1a237e;"></i>
             </div>
 
-            <!-- Model M and Output Y_hat -->
-            <div class="column is-12 has-text-centered">
-                <div class="box has-background-primary has-text-white has-text-weight-bold p-3 mb-2" style="border-radius: 10px; display: inline-block;">
+            <!-- Arrow -->
+            <div class="column is-1">
+                <i class="fas fa-arrow-right fa-2x" style="color:#1a237e;"></i>
+            </div>
+
+            <!-- Col 2: Model -->
+            <div class="column is-2">
+                <div class="box has-background-primary has-text-white has-text-weight-bold p-3" style="border-radius: 10px;">
                     Model
                 </div>
-                <i class="fas fa-arrow-down fa-2x" style="color:#ff3b30;"></i>
-                <p class="subtitle is-7 mt-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$ (10 Masks)</p>
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
-                    
-                    <!-- M1 (Red prediction) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
+            </div>
+
+            <!-- Arrow -->
+            <div class="column is-1">
+                <i class="fas fa-arrow-right fa-2x" style="color:#ff3b30;"></i>
+            </div>
+
+            <!-- Col 3: Prediction (Vertical) -->
+            <div class="column is-2">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测 $\hat{\mathbf{Y}}$</p>
+                <div class="sequence-col">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
                             <div class="lv-predicted-mask"></div>
                             <span class="lv-text">$\hat{y}_1$</span>
                         </div>
-                        <i class="fas fa-arrow-down fa-lg mt-1" style="color:#ff3b30;"></i>
                     </div>
-                    <!-- M2 (Red prediction) -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
                             <div class="lv-predicted-mask"></div>
                             <span class="lv-text">$\hat{y}_2$</span>
                         </div>
-                        <i class="fas fa-arrow-down fa-lg mt-1" style="visibility: hidden;"></i>
                     </div>
-                    <!-- ... -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">...</span>
-                        </div>
-                        <i class="fas fa-arrow-down fa-lg mt-1" style="visibility: hidden;"></i>
+                    <div class="frame-item">
+                        <span class="has-text-grey-light is-size-5">...</span>
                     </div>
-                    <!-- M10 (Red prediction) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
                             <div class="lv-predicted-mask"></div>
                             <span class="lv-text">$\hat{y}_{10}$</span>
                         </div>
-                        <i class="fas fa-arrow-down fa-lg mt-1" style="color:#ff3b30;"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- GT Y and Comparison/Loss -->
-            <div class="column is-12">
-                <!-- Loss Comparison -->
-                <i class="fas fa-arrows-v fa-2x mt-3 mb-3" style="color:#f9a124;"></i> 
-                <p class="subtitle is-7 has-text-weight-semibold">预测 $\hat{\mathbf{Y}}$ 与 稀疏真值 $\mathbf{Y}$ 对比</p>
+            <!-- Arrow -->
+            <div class="column is-1">
+                <i class="fas fa-arrows-alt-h fa-lg" style="color:#f9a124;"></i>
+            </div>
 
-                <!-- Comparison Masks -->
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
-                    <!-- Loss F1 -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #f9a124; border-width: 2px;">
+            <!-- Col 4: Loss (Vertical) -->
+            <div class="column is-2">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">损失 $\mathcal{L}$</p>
+                <div class="sequence-col">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #f9a124; border-width: 2px;">
                             <div class="lv-gt-mask"></div>
                             <div class="lv-predicted-mask"></div> 
                             <span class="lv-text">F1</span>
                         </div>
-                        <p class="has-text-weight-bold has-text-danger mt-1">计算 $\mathcal{L}_1$</p>
                     </div>
-                    <!-- Empty/Invisible F2 -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; background: transparent; border: none;">
-                            <span class="has-text-grey-light">F2 (无 GT)</span>
-                        </div>
-                        <p>&nbsp;</p>
+                    <div class="frame-item" style="height: 40px; visibility: hidden;">
+                        <!-- Spacer for alignment -->
                     </div>
-                    <!-- Empty/Invisible ... -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; background: transparent; border: none;">
-                            <span class="has-text-grey-light">...</span>
-                        </div>
-                        <p>&nbsp;</p>
+                    <div class="frame-item">
+                        <span class="has-text-grey-light is-size-5">...</span>
                     </div>
-                    <!-- Loss F10 -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #f9a124; border-width: 2px;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #f9a124; border-width: 2px;">
                             <div class="lv-gt-mask"></div>
                             <div class="lv-predicted-mask"></div> 
                             <span class="lv-text">F10</span>
                         </div>
-                        <p class="has-text-weight-bold has-text-danger mt-1">计算 $\mathcal{L}_{10}$</p>
                     </div>
                 </div>
-                
-                <!-- Final Loss Box -->
-                <div class="box has-background-danger has-text-white has-text-weight-bold p-3 mt-4" style="border-radius: 10px; font-size: 1rem; display: inline-block;">
-                    总损失 $\mathcal{L} = \mathcal{L}_1 + \mathcal{L}_{10}$
-                </div>
             </div>
+
         </div>
       </div>
       <!-- End Training Flow Diagram -->
       
-      <!-- 2.2 评估阶段 (Evaluation Phase) -->
+      <!-- 2.2 Evaluation Phase -->
       <h5 class="title is-6" style="margin-top: 3rem; color: #007aff;">2.2 评估阶段 (Evaluation Phase - Clinical Scenario)</h5>
       
-      <p>在评估阶段（或实际临床应用中），模型接收完整的 10 帧输入序列 $\mathbf{X}$，且不提供任何真值信息，这模拟了医生在真实临床中拿到视频序列直接判断 LV 掩膜的场景。模型的任务是准确地预测整个序列的所有 10 帧 LV 分割掩膜 $\hat{\mathbf{Y}}$。</p>
-      
-      <!-- Evaluation Flow Diagram -->
+      <!-- Evaluation Flow Diagram (Vertical Strips / Horizontal Flow) -->
       <div class="box p-4 mt-4 has-background-info-light">
         <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#007aff;">评估过程示意图 (Inference)</p>
-        <div class="columns is-vcentered is-centered has-text-centered is-multiline">
+        <div class="columns is-vcentered is-centered has-text-centered">
             
-            <!-- Input X (No GT labels/visuals) -->
-            <div class="column is-12">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入序列 $\mathbf{X}$ (10 Frames)</p>
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
-                    
-                    <!-- F1 (Input B/W) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #dbdbdb;">
+            <!-- Col 1: Input Sequence (Vertical) -->
+            <div class="column is-3">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$ (无真值)</p>
+                <div class="sequence-col">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
                             <div class="lv-outline"></div>
                             <span class="lv-text">F1</span>
                         </div>
                     </div>
-                    <!-- F2 (Input B/W) -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1;">
                             <div class="lv-outline"></div>
                             <span class="lv-text">F2</span>
                         </div>
                     </div>
-                    <!-- ... -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem;">
-                            <div class="lv-outline"></div>
-                            <span class="lv-text">...</span>
-                        </div>
+                    <div class="frame-item">
+                        <span class="has-text-grey-light is-size-5">...</span>
                     </div>
-                    <!-- F10 (Input B/W) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #dbdbdb;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #dbdbdb;">
                             <div class="lv-outline"></div>
                             <span class="lv-text">F10</span>
                         </div>
                     </div>
                 </div>
-                <i class="fas fa-arrow-down fa-2x mt-2" style="color:#1a237e;"></i>
             </div>
             
-            <!-- Model M -->
-            <div class="column is-12 has-text-centered">
-                <div class="box has-background-primary has-text-white has-text-weight-bold p-3 mb-2" style="border-radius: 10px; display: inline-block;">
-                    Model
+            <!-- Arrow -->
+            <div class="column is-1">
+                <i class="fas fa-arrow-right fa-2x" style="color:#1a237e;"></i>
+            </div>
+
+            <!-- Col 2: Model -->
+            <div class="column is-3">
+                <div class="box has-background-primary has-text-white has-text-weight-bold p-3" style="border-radius: 10px;">
+                    Model / <i class="fas fa-user-md"></i>
                 </div>
-                <i class="fas fa-arrow-down fa-2x" style="color:#ff3b30;"></i>
             </div>
             
-            <!-- Output Y_hat -->
-            <div class="column is-12">
-                <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$ (10 Masks)</p>
-                <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
-                    <!-- M1 (Red prediction) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
+            <!-- Arrow -->
+            <div class="column is-1">
+                <i class="fas fa-arrow-right fa-2x" style="color:#ff3b30;"></i>
+            </div>
+
+            <!-- Col 3: Prediction (Vertical) -->
+            <div class="column is-3">
+                <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$</p>
+                <div class="sequence-col">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
                             <div class="lv-predicted-mask"></div>
                             <span class="lv-text">$\hat{y}_1$</span>
                         </div>
                     </div>
-                    <!-- M2 (Red prediction) -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
                             <div class="lv-predicted-mask"></div>
                             <span class="lv-text">$\hat{y}_2$</span>
                         </div>
                     </div>
-                    <!-- ... -->
-                    <div style="width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
-                            <div class="lv-predicted-mask"></div>
-                            <span class="lv-text">...</span>
-                        </div>
+                    <div class="frame-item">
+                        <span class="has-text-grey-light is-size-5">...</span>
                     </div>
-                    <!-- M10 (Red prediction) -->
-                    <div style="position: relative; width: 22%;">
-                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; width: 100%; padding: 0.4rem; border-color: #ff3b30;">
+                    <div class="frame-item">
+                        <div class="img-placeholder lv-bg" style="aspect-ratio: 1; border-color: #ff3b30;">
                             <div class="lv-predicted-mask"></div>
                             <span class="lv-text">$\hat{y}_{10}$</span>
                         </div>
@@ -715,7 +687,7 @@
       </div>
       <!-- End Evaluation Flow Diagram -->
       
-      <!-- Step 3: GDKVM 模型对视频序列的具体处理 -->
+      <!-- Step 3: GDKVM Processing Details -->
       <h4 class="title is-5" style="margin-top: 2rem; margin-bottom: 0.5rem;">3. GDKVM 模型对视频序列的具体处理</h4>
       
       <!-- GDKVM Processing Flow Diagram -->
@@ -779,7 +751,7 @@
     </div>
   </div>
 </section>
-<!-- END NEW SECTION: Model Methodology (方法论) -->
+<!-- END NEW SECTION: Model Methodology -->
 
 <!-- Abstract -->
 <section class="section">
@@ -813,11 +785,11 @@
   </div>
 </section>
 
-<!-- Challenges (Figure 2): Reverted to original img tags and sources -->
+<!-- Challenges (Figure 2) -->
 <section class="section">
   <div class="container is-max-desktop">
     <h3 class="title is-4 has-text-centered mb-5">Challenges in Echocardiography Segmentation</h3>
-    <div class="content"> <!-- Removed has-text-centered -->
+    <div class="content"> 
       <p>
         Echocardiography segmentation faces several challenges such as low contrast, speckle noise, and signal dropout.
       </p>
@@ -849,8 +821,8 @@
         <p class="mt-2">(f)</p>
       </div>
     </div>
-    <div class=""> <!-- Removed has-text-centered -->
-      <p style="font-size: 0.9rem; color: #555; text-align: justify; margin-top: 1rem;"> <!-- Changed to justify, removed auto margins -->
+    <div class=""> 
+      <p style="font-size: 0.9rem; color: #555; text-align: justify; margin-top: 1rem;"> 
         <strong>Figure 2.</strong> Illustrative challenges for echocardiography video segmentation: (a) speckle noise, (b) indistinct or blurred contours,
         and (c-f) the substantial changes in the target’s shape and scale
         throughout the cardiac cycle.
@@ -882,19 +854,17 @@
   </div>
 </section>
 
-<!-- Additional Resources (CVF & Poster moved here) -->
+<!-- Additional Resources -->
 <section class="section" style="padding-bottom: 3rem;">
   <div class="container is-max-desktop has-text-centered">
     <h2 class="title is-3">Additional Resources</h2>
     <div class="publication-links">
-        <!-- Moved CVF Button -->
         <span class="link-block">
             <a href="https://openaccess.thecvf.com/content/ICCV2025/html/Wang_GDKVM_Echocardiography_Video_Segmentation_via_Spatiotemporal_Key-Value_Memory_with_Gated_ICCV_2025_paper.html" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
               <span class="icon"><i class="fas fa-file-pdf"></i></span>
               <span>CVF</span>
             </a>
         </span>
-        <!-- Added Poster Button -->
         <span class="link-block">
             <a href="https://iccv.thecvf.com/media/PosterPDFs/ICCV%202025/2134.png?t=1759901950.5662367" target="_blank" class="external-link button is-normal is-rounded is-dark mb-1">
               <span class="icon"><i class="fas fa-image"></i></span>
