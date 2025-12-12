@@ -659,16 +659,6 @@
       </div>
       <!-- End GDKVM Processing Flow Diagram -->
 
-      <p style="margin-top: 1.5rem;">
-        在 $t$ 时刻，处理流程如下：
-      </p>
-      <ol>
-        <li><strong>特征提取 (Encoder):</strong> 模型的编码器首先提取当前帧 $x_t$ 的特征，生成查询向量 $Q_t$。</li>
-        <li><strong>记忆读取 (LKVA - Linear Key-Value Association):</strong> $Q_t$ 用于查询先前帧积累的记忆 $M_{t-1}$，计算得到时空整合后的特征 $O_t$。</li>
-        <li><strong>特征融合 (KPFF - Key-Pixel Feature Fusion):</strong> $O_t$ 与 $Q_t$ 融合，生成最终的精细化特征图，并输入解码器预测分割掩膜 $\hat{y}_t$。</li>
-        <li><strong>记忆更新 (GDR - Gated Delta Rule):</strong> $Q_t$ 同时用于更新记忆 $M_{t-1}$。GDR 根据当前帧信息动态决定哪些旧信息应该保留或更新，从而生成新的记忆 $M_t$ 传递给下一帧 $x_{t+1}$，实现高效的时序依赖建模。</li>
-      </ol>
-
     </div>
   </div>
 </section>
