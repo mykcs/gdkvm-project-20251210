@@ -196,6 +196,8 @@
       padding: 0.25rem;
       transition: all 0.3s ease;
       text-align: center;
+      /* Adjusted max-width for better visibility */
+      max-width: 130px; 
       margin: 0 auto; /* Center in container */
     }
 
@@ -395,7 +397,7 @@
       <!-- Step 1: Data Processing -->
       <h4 class="title is-5" style="margin-bottom: 0.5rem;">1. 数据处理 (Data Processing)</h4>
       
-      <!-- Data Processing Flow Diagram (Reverted to Horizontal Layout) -->
+      <!-- Data Processing Flow Diagram -->
       <div class="box p-4 mt-4 has-background-light">
           <p class="subtitle is-6 mb-4 has-text-weight-bold has-text-centered" style="color:#1a237e;">数据处理流程示意图 (Simplified Data Processing Flow)</p>
           <div class="columns is-vcentered has-text-centered is-mobile is-multiline">
@@ -495,7 +497,7 @@
         <div class="columns is-vcentered is-centered has-text-centered">
 
             <!-- Col 1: Input Sequence (Vertical) -->
-            <div class="column is-3">
+            <div class="column is-2">
                 <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$</p>
                 <div class="sequence-col">
                     <div class="frame-item">
@@ -540,7 +542,7 @@
             </div>
 
             <!-- Col 3: Prediction (Vertical) -->
-            <div class="column is-3">
+            <div class="column is-2">
                 <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测 $\hat{\mathbf{Y}}$</p>
                 <div class="sequence-col">
                     <div class="frame-item">
@@ -573,7 +575,7 @@
             </div>
 
             <!-- Col 4: Loss (Vertical) -->
-            <div class="column is-3">
+            <div class="column is-2">
                 <p class="subtitle is-7 mb-2 has-text-weight-semibold">损失 $\mathcal{L}$</p>
                 <div class="sequence-col">
                     <div class="frame-item">
@@ -612,7 +614,7 @@
         <div class="columns is-vcentered is-centered has-text-centered">
             
             <!-- Col 1: Input Sequence (Vertical) -->
-            <div class="column is-4">
+            <div class="column is-2">
                 <p class="subtitle is-7 mb-2 has-text-weight-semibold">输入 $\mathbf{X}$ (无真值)</p>
                 <div class="sequence-col">
                     <div class="frame-item">
@@ -657,7 +659,7 @@
             </div>
 
             <!-- Col 3: Prediction (Vertical) -->
-            <div class="column is-4">
+            <div class="column is-2">
                 <p class="subtitle is-7 mb-2 has-text-weight-semibold">预测输出 $\hat{\mathbf{Y}}$</p>
                 <div class="sequence-col">
                     <div class="frame-item">
